@@ -178,24 +178,131 @@
         </div>
       </div>
 
-      <!-- 300x250 Banner - External Data Terminal -->
-      <div class="data-terminal">
-        <div class="terminal-header">
-          <span class="terminal-number">05</span>
-          <span class="terminal-name">EXT TERMINAL</span>
+      <!-- Bottom Grid: Ad + Data Panels -->
+      <div class="bottom-grid">
+        <!-- Left: Fake data panels stacked -->
+        <div class="bottom-left">
+          <!-- Pilot Status -->
+          <div class="info-box">
+            <div class="info-box-header">
+              <span class="info-box-id">06</span>
+              <span class="info-box-name">PILOT STATUS</span>
+            </div>
+            <div class="info-box-body">
+              <div class="pilot-row"><span class="pilot-label">UNIT-00</span><span class="pilot-val pilot-standby">STANDBY</span></div>
+              <div class="pilot-row"><span class="pilot-label">UNIT-01</span><span class="pilot-val pilot-active">ACTIVE</span></div>
+              <div class="pilot-row"><span class="pilot-label">UNIT-02</span><span class="pilot-val pilot-standby">STANDBY</span></div>
+            </div>
+          </div>
+          <!-- Sync Monitor -->
+          <div class="info-box">
+            <div class="info-box-header">
+              <span class="info-box-id">07</span>
+              <span class="info-box-name">SYNC MONITOR</span>
+            </div>
+            <div class="info-box-body">
+              <div class="sync-bar-row">
+                <span class="sync-label">REI</span>
+                <div class="sync-track"><div class="sync-fill" id="sync-rei" style="width:42%"></div></div>
+                <span class="sync-pct" id="sync-rei-pct">42%</span>
+              </div>
+              <div class="sync-bar-row">
+                <span class="sync-label">SHINJI</span>
+                <div class="sync-track"><div class="sync-fill sync-fill-high" id="sync-shinji" style="width:78%"></div></div>
+                <span class="sync-pct" id="sync-shinji-pct">78%</span>
+              </div>
+              <div class="sync-bar-row">
+                <span class="sync-label">ASUKA</span>
+                <div class="sync-track"><div class="sync-fill" id="sync-asuka" style="width:65%"></div></div>
+                <span class="sync-pct" id="sync-asuka-pct">65%</span>
+              </div>
+            </div>
+          </div>
+          <!-- Pattern Analysis -->
+          <div class="info-box">
+            <div class="info-box-header">
+              <span class="info-box-id">08</span>
+              <span class="info-box-name">PATTERN</span>
+            </div>
+            <div class="info-box-body">
+              <div class="pattern-grid" id="pattern-grid"></div>
+              <div class="pattern-status">BLOOD TYPE: <span style="color:var(--blue-yes)">BLUE</span> &mdash; NO THREAT</div>
+            </div>
+          </div>
         </div>
-        <div class="terminal-label">EXTERNAL DATA LINK</div>
-        <div class="terminal-ad-container">
-          <script>
-            atOptions = {
-              'key' : '03f6729ef4fa3019fed57514289bbc3f',
-              'format' : 'iframe',
-              'height' : 250,
-              'width' : 300,
-              'params' : {}
-            };
-          </script>
-          <script src="https://www.highperformanceformat.com/03f6729ef4fa3019fed57514289bbc3f/invoke.js"></script>
+
+        <!-- Center: 300x250 Ad -->
+        <div class="bottom-center">
+          <div class="data-terminal">
+            <div class="terminal-header">
+              <span class="terminal-number">05</span>
+              <span class="terminal-name">EXT TERMINAL</span>
+            </div>
+            <div class="terminal-label">EXTERNAL DATA LINK</div>
+            <div class="terminal-ad-container">
+              <script>
+                atOptions = {
+                  'key' : '03f6729ef4fa3019fed57514289bbc3f',
+                  'format' : 'iframe',
+                  'height' : 250,
+                  'width' : 300,
+                  'params' : {}
+                };
+              </script>
+              <script src="https://www.highperformanceformat.com/03f6729ef4fa3019fed57514289bbc3f/invoke.js"></script>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: More data panels -->
+        <div class="bottom-right">
+          <!-- GeoFront Map (ASCII) -->
+          <div class="info-box">
+            <div class="info-box-header">
+              <span class="info-box-id">09</span>
+              <span class="info-box-name">GEO-FRONT</span>
+            </div>
+            <div class="info-box-body">
+              <pre class="ascii-map">  ╔══════════╗
+  ║ ◇CENTRAL ║
+  ║  DOGMA   ║
+  ║ ┌──┐┌──┐ ║
+  ║ │01││02│ ║
+  ║ └──┘└──┘ ║
+  ║   ┌──┐   ║
+  ║   │03│   ║
+  ║   └──┘   ║
+  ╚══════════╝</pre>
+            </div>
+          </div>
+          <!-- Alert Level -->
+          <div class="info-box">
+            <div class="info-box-header">
+              <span class="info-box-id">10</span>
+              <span class="info-box-name">ALERT</span>
+            </div>
+            <div class="info-box-body">
+              <div class="alert-level">
+                <div class="alert-block alert-green active">NORMAL</div>
+                <div class="alert-block alert-yellow">CAUTION</div>
+                <div class="alert-block alert-red">EMERGENCY</div>
+              </div>
+              <div class="alert-sub">DEFCON: 5 &mdash; PEACE</div>
+            </div>
+          </div>
+          <!-- Memory Usage -->
+          <div class="info-box">
+            <div class="info-box-header">
+              <span class="info-box-id">11</span>
+              <span class="info-box-name">RESOURCES</span>
+            </div>
+            <div class="info-box-body">
+              <div class="res-row"><span class="res-label">CPU</span><div class="res-track"><div class="res-fill" id="res-cpu" style="width:34%"></div></div></div>
+              <div class="res-row"><span class="res-label">MEM</span><div class="res-track"><div class="res-fill" id="res-mem" style="width:67%"></div></div></div>
+              <div class="res-row"><span class="res-label">NET</span><div class="res-track"><div class="res-fill" id="res-net" style="width:23%"></div></div></div>
+              <div class="res-row"><span class="res-label">LCL</span><div class="res-track"><div class="res-fill res-fill-warn" id="res-lcl" style="width:82%"></div></div></div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
@@ -265,7 +372,6 @@
     <div class="footer-disclaimer">GEHIRN / NERV &mdash; GOD'S IN HIS HEAVEN, ALL'S RIGHT WITH THE WORLD.</div>
   </footer>
   
-  <!-- Adsterra ads loaded after interstitial closes -->
 
   <script>
     // Interstitial countdown
@@ -338,6 +444,54 @@
         bars.forEach(function(b) { b.style.height = rnd(20, 95) + '%'; });
       }, 1500);
 
+      // Sync rate animation
+      setInterval(function() {
+        var pilots = [
+          { fill: 'sync-rei', pct: 'sync-rei-pct', base: 42, range: 12 },
+          { fill: 'sync-shinji', pct: 'sync-shinji-pct', base: 78, range: 8 },
+          { fill: 'sync-asuka', pct: 'sync-asuka-pct', base: 65, range: 15 },
+        ];
+        pilots.forEach(function(p) {
+          var v = Math.round(p.base + (Math.random() - 0.5) * p.range);
+          var el = document.getElementById(p.fill);
+          var pctEl = document.getElementById(p.pct);
+          if (el) el.style.width = v + '%';
+          if (pctEl) pctEl.textContent = v + '%';
+        });
+      }, 2500);
+
+      // Resource bars animation
+      setInterval(function() {
+        var res = [
+          { id: 'res-cpu', base: 34, range: 30 },
+          { id: 'res-mem', base: 67, range: 15 },
+          { id: 'res-net', base: 23, range: 40 },
+          { id: 'res-lcl', base: 82, range: 10 },
+        ];
+        res.forEach(function(r) {
+          var v = Math.round(r.base + (Math.random() - 0.5) * r.range);
+          var el = document.getElementById(r.id);
+          if (el) el.style.width = Math.max(5, Math.min(98, v)) + '%';
+        });
+      }, 3000);
+
+      // Pattern grid (8x6 random dots)
+      (function() {
+        var grid = document.getElementById('pattern-grid');
+        if (!grid) return;
+        function render() {
+          var html = '';
+          for (var i = 0; i < 48; i++) {
+            var v = Math.random();
+            var cls = v > 0.85 ? 'pat-hot' : v > 0.6 ? 'pat-warm' : 'pat-cold';
+            html += '<div class="pat-cell ' + cls + '"></div>';
+          }
+          grid.innerHTML = html;
+        }
+        render();
+        setInterval(render, 2000);
+      })();
+
       // Uptime counter
       var ut = 847 * 3600 + 23 * 60 + 1;
       setInterval(function() {
@@ -352,13 +506,6 @@
 
     function closeInterstitial() {
       document.getElementById('interstitial').style.display = 'none';
-      // Load other Adsterra ads after interstitial is closed
-      var s1 = document.createElement('script');
-      s1.src = 'https://pl28894781.effectivegatecpm.com/aa/0b/87/aa0b87ccd7ce76cd0b63f50e0966ec48.js';
-      document.body.appendChild(s1);
-      var s2 = document.createElement('script');
-      s2.src = 'https://pl28894761.effectivegatecpm.com/f7/dc/4f/f7dc4f26bf341887f640c4bdfc93742b.js';
-      document.body.appendChild(s2);
     }
   </script>
   <script src="script.js"></script>
