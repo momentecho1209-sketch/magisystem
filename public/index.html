@@ -7,27 +7,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Interstitial Ad Overlay -->
-  <div id="interstitial" class="interstitial-overlay">
-    <div class="interstitial-content">
-      <div class="interstitial-header">NERV SECURITY CHECK</div>
-      <div class="interstitial-ad-container" id="ad-container">
-        <script>
-          atOptions = {
-            'key' : '03f6729ef4fa3019fed57514289bbc3f',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highperformanceformat.com/03f6729ef4fa3019fed57514289bbc3f/invoke.js"></script>
-      </div>
-      <button id="interstitial-close" class="interstitial-close-btn" disabled onclick="closeInterstitial()">
-        <span id="interstitial-timer">5</span>
-      </button>
-    </div>
-  </div>
 
   <div class="scanline"></div>
 
@@ -158,30 +137,8 @@
         </div>
       </div>
 
-      <!-- 320x50 Banner - System Broadcast Strip -->
-      <div class="system-strip">
-        <div class="strip-inner">
-          <span class="strip-marker">▸ NERV BROADCAST</span>
-          <div class="strip-ad-container">
-            <script>
-              atOptions = {
-                'key' : 'bdfae3df3c9f00338637842c718fe41e',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-              };
-            </script>
-            <script src="https://www.highperformanceformat.com/bdfae3df3c9f00338637842c718fe41e/invoke.js"></script>
-          </div>
-          <span class="strip-marker">BROADCAST ◂</span>
-        </div>
-      </div>
-
-      <!-- Bottom Grid: Ad + Data Panels -->
-      <div class="bottom-grid">
-        <!-- Left: Fake data panels stacked -->
-        <div class="bottom-left">
+        <!-- Row 2: Data panels grid -->
+        <div class="bottom-data-grid">
           <!-- Pilot Status -->
           <div class="info-box">
             <div class="info-box-header">
@@ -218,7 +175,21 @@
               </div>
             </div>
           </div>
-          <!-- Pattern Analysis -->
+          <!-- Waveform -->
+          <div class="info-box">
+            <div class="info-box-header">
+              <span class="info-box-id">09</span>
+              <span class="info-box-name">WAVEFORM</span>
+            </div>
+            <div class="info-box-body">
+              <canvas id="waveform-canvas" class="waveform-canvas" width="200" height="70"></canvas>
+              <div class="waveform-meta">
+                <span>FREQ: <span id="wave-freq">127.4</span>Hz</span>
+                <span>AMP: <span id="wave-amp">0.83</span></span>
+              </div>
+            </div>
+          </div>
+          <!-- Pattern -->
           <div class="info-box">
             <div class="info-box-header">
               <span class="info-box-id">08</span>
@@ -229,53 +200,7 @@
               <div class="pattern-status">BLOOD TYPE: <span style="color:var(--blue-yes)">BLUE</span> &mdash; NO THREAT</div>
             </div>
           </div>
-        </div>
-
-        <!-- Center: 300x250 Ad -->
-        <div class="bottom-center">
-          <div class="data-terminal">
-            <div class="terminal-header">
-              <span class="terminal-number">05</span>
-              <span class="terminal-name">EXT TERMINAL</span>
-            </div>
-            <div class="terminal-label">EXTERNAL DATA LINK</div>
-            <div class="terminal-ad-container">
-              <script>
-                atOptions = {
-                  'key' : '03f6729ef4fa3019fed57514289bbc3f',
-                  'format' : 'iframe',
-                  'height' : 250,
-                  'width' : 300,
-                  'params' : {}
-                };
-              </script>
-              <script src="https://www.highperformanceformat.com/03f6729ef4fa3019fed57514289bbc3f/invoke.js"></script>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: More data panels -->
-        <div class="bottom-right">
-          <!-- GeoFront Map (ASCII) -->
-          <div class="info-box">
-            <div class="info-box-header">
-              <span class="info-box-id">09</span>
-              <span class="info-box-name">GEO-FRONT</span>
-            </div>
-            <div class="info-box-body">
-              <pre class="ascii-map">  ╔══════════╗
-  ║ ◇CENTRAL ║
-  ║  DOGMA   ║
-  ║ ┌──┐┌──┐ ║
-  ║ │01││02│ ║
-  ║ └──┘└──┘ ║
-  ║   ┌──┐   ║
-  ║   │03│   ║
-  ║   └──┘   ║
-  ╚══════════╝</pre>
-            </div>
-          </div>
-          <!-- Alert Level -->
+          <!-- Alert -->
           <div class="info-box">
             <div class="info-box-header">
               <span class="info-box-id">10</span>
@@ -290,7 +215,7 @@
               <div class="alert-sub">DEFCON: 5 &mdash; PEACE</div>
             </div>
           </div>
-          <!-- Memory Usage -->
+          <!-- Resources -->
           <div class="info-box">
             <div class="info-box-header">
               <span class="info-box-id">11</span>
@@ -304,53 +229,30 @@
             </div>
           </div>
         </div>
+
+        <!-- Signal noise bar -->
+        <div class="signal-bar">
+          <span class="signal-label">SIGNAL</span>
+          <div class="side-bar-graph">
+            <div class="bar-col" style="height:60%"></div>
+            <div class="bar-col" style="height:40%"></div>
+            <div class="bar-col" style="height:80%"></div>
+            <div class="bar-col" style="height:30%"></div>
+            <div class="bar-col" style="height:55%"></div>
+            <div class="bar-col" style="height:70%"></div>
+            <div class="bar-col" style="height:45%"></div>
+            <div class="bar-col" style="height:90%"></div>
+            <div class="bar-col" style="height:35%"></div>
+            <div class="bar-col" style="height:65%"></div>
+            <div class="bar-col" style="height:50%"></div>
+            <div class="bar-col" style="height:75%"></div>
+          </div>
+          <span class="signal-hex" id="noise-hex">7F 3A 02 E1 9C</span>
+          <span class="signal-label">ANALYSIS</span>
+        </div>
       </div>
     </main>
 
-    <!-- Side Panel - NERV Data Feed -->
-    <aside class="side-panel">
-      <div class="side-panel-header">
-        <span class="side-panel-number">04</span>
-        <span class="side-panel-name">DATA FEED</span>
-      </div>
-      <div class="side-panel-label">EXTERNAL LINK</div>
-
-      <!-- Side panel noise: mini status -->
-      <div class="side-noise">
-        <div class="side-noise-row"><span class="side-noise-key">FREQ</span><span class="side-noise-val" id="noise-freq">432.7MHz</span></div>
-        <div class="side-noise-row"><span class="side-noise-key">GAIN</span><span class="side-noise-val">-3.2dB</span></div>
-        <div class="side-noise-row"><span class="side-noise-key">SNR</span><span class="side-noise-val" id="noise-snr">47.1</span></div>
-      </div>
-
-      <div class="side-panel-ad">
-        <script>
-          atOptions = {
-            'key' : '6eb9d0b67b1ee6284cb91d25e9085f3c',
-            'format' : 'iframe',
-            'height' : 300,
-            'width' : 160,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highperformanceformat.com/6eb9d0b67b1ee6284cb91d25e9085f3c/invoke.js"></script>
-      </div>
-
-      <!-- Side panel bottom noise -->
-      <div class="side-noise-bottom">
-        <div class="side-noise-hex" id="noise-hex">7F 3A 02 E1 9C</div>
-        <div class="side-bar-graph">
-          <div class="bar-col" style="height:60%"></div>
-          <div class="bar-col" style="height:40%"></div>
-          <div class="bar-col" style="height:80%"></div>
-          <div class="bar-col" style="height:30%"></div>
-          <div class="bar-col" style="height:55%"></div>
-          <div class="bar-col" style="height:70%"></div>
-          <div class="bar-col" style="height:45%"></div>
-          <div class="bar-col" style="height:90%"></div>
-        </div>
-        <div class="side-noise-label">SIGNAL ANALYSIS</div>
-      </div>
-    </aside>
   </div>
 
   <!-- Detail Modal -->
@@ -456,16 +358,6 @@
       }, 5000);
 
       setInterval(function() {
-        var el = document.getElementById('noise-freq');
-        if (el) el.textContent = rnd(400, 480, 1) + 'MHz';
-      }, 4000);
-
-      setInterval(function() {
-        var el = document.getElementById('noise-snr');
-        if (el) el.textContent = rnd(30, 60, 1);
-      }, 3500);
-
-      setInterval(function() {
         var el = document.getElementById('noise-hex');
         if (el) el.textContent = [hexByte(), hexByte(), hexByte(), hexByte(), hexByte()].join(' ');
       }, 2000);
@@ -522,6 +414,54 @@
         }
         render();
         setInterval(render, 2000);
+      })();
+
+      // Waveform canvas
+      (function() {
+        var canvas = document.getElementById('waveform-canvas');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        var w = canvas.width, h = canvas.height;
+        var offset = 0;
+
+        function draw() {
+          ctx.clearRect(0, 0, w, h);
+          // Grid lines
+          ctx.strokeStyle = 'rgba(0, 255, 65, 0.08)';
+          ctx.lineWidth = 1;
+          for (var gy = 0; gy < h; gy += 14) {
+            ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
+          }
+          for (var gx = 0; gx < w; gx += 20) {
+            ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke();
+          }
+          // Main wave
+          ctx.strokeStyle = '#00ff41';
+          ctx.lineWidth = 1.5;
+          ctx.shadowColor = '#00ff41';
+          ctx.shadowBlur = 4;
+          ctx.beginPath();
+          for (var x = 0; x < w; x++) {
+            var y = h / 2
+              + Math.sin((x + offset) * 0.05) * 15
+              + Math.sin((x + offset) * 0.12) * 8
+              + Math.sin((x + offset) * 0.03) * 5
+              + (Math.random() - 0.5) * 2;
+            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+          ctx.shadowBlur = 0;
+          offset += 2;
+          requestAnimationFrame(draw);
+        }
+        draw();
+
+        setInterval(function() {
+          var fe = document.getElementById('wave-freq');
+          var ae = document.getElementById('wave-amp');
+          if (fe) fe.textContent = (100 + Math.random() * 80).toFixed(1);
+          if (ae) ae.textContent = (0.5 + Math.random() * 0.5).toFixed(2);
+        }, 3000);
       })();
 
       // Uptime counter
