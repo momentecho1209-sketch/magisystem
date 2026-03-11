@@ -394,35 +394,14 @@ button#submit:disabled {
   animation: flicker 4s infinite alternate;
 }
 
-.interstitial-ad-link {
-  display: block;
-  text-decoration: none;
-}
-
-.interstitial-ad-area {
-  border: 1px solid var(--green-primary);
-  padding: 40px 20px;
+.interstitial-ad-container {
+  border: 1px solid var(--border-color);
+  min-height: 250px;
   margin-bottom: 30px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.interstitial-ad-area:hover {
-  background: var(--green-dark);
-  box-shadow: 0 0 20px var(--green-dim);
-}
-
-.interstitial-ad-text {
-  font-size: 1rem;
-  letter-spacing: 0.3rem;
-  color: var(--green-primary);
-  margin-bottom: 10px;
-}
-
-.interstitial-ad-sub {
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  letter-spacing: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .interstitial-close-btn {

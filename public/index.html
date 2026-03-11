@@ -11,12 +11,9 @@
   <div id="interstitial" class="interstitial-overlay">
     <div class="interstitial-content">
       <div class="interstitial-header">NERV SECURITY CHECK</div>
-      <a href="https://www.effectivegatecpm.com/xm3qvzds1z?key=06159b3ffe78a758b9f3146b151100ea" target="_blank" rel="noopener" class="interstitial-ad-link">
-        <div class="interstitial-ad-area">
-          <div class="interstitial-ad-text">SPONSORED CONTENT</div>
-          <div class="interstitial-ad-sub">Click to view</div>
-        </div>
-      </a>
+      <div class="interstitial-ad-container" id="ad-container">
+        <!-- Ad code injected here by JS -->
+      </div>
       <button id="interstitial-close" class="interstitial-close-btn" disabled onclick="closeInterstitial()">
         <span id="interstitial-timer">5</span>
       </button>
@@ -100,8 +97,14 @@
   <script src="https://pl28894761.effectivegatecpm.com/f7/dc/4f/f7dc4f26bf341887f640c4bdfc93742b.js"></script>
 
   <script>
-    // Interstitial countdown & close
+    // Inject ad into interstitial modal
     (function() {
+      var container = document.getElementById('ad-container');
+      var script = document.createElement('script');
+      script.src = 'https://pl28894781.effectivegatecpm.com/aa/0b/87/aa0b87ccd7ce76cd0b63f50e0966ec48.js';
+      container.appendChild(script);
+
+      // Countdown
       var seconds = 5;
       var timer = document.getElementById('interstitial-timer');
       var btn = document.getElementById('interstitial-close');
