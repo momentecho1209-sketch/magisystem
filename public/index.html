@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAGI SYSTEM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="scanline"></div>
+
+  <header>
+    <div class="header-line"></div>
+    <h1>MAGI SYSTEM</h1>
+    <p class="subtitle">SUPER-COMPUTER SYSTEM &mdash; NERV</p>
+    <div class="header-line"></div>
+  </header>
+
+  <main>
+    <div class="input-section">
+      <div class="input-label">INQUIRY INPUT</div>
+      <div class="input-wrapper">
+        <textarea id="question" rows="3" placeholder="質問を入力してください..."></textarea>
+        <button id="submit" onclick="submitQuestion()">
+          <span class="btn-text">EXECUTE</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="magi-panels">
+      <!-- CASPER - ChatGPT -->
+      <div class="magi-panel" id="panel-casper" onclick="showDetail('casper')">
+        <div class="panel-header">
+          <span class="panel-number">01</span>
+          <span class="panel-name">CASPER</span>
+        </div>
+        <div class="panel-ai">ChatGPT</div>
+        <div class="panel-status" id="status-casper">STANDBY</div>
+        <div class="panel-judgment" id="judgment-casper">&mdash;</div>
+      </div>
+
+      <!-- BALTHASAR - Gemini -->
+      <div class="magi-panel" id="panel-balthasar" onclick="showDetail('balthasar')">
+        <div class="panel-header">
+          <span class="panel-number">02</span>
+          <span class="panel-name">BALTHASAR</span>
+        </div>
+        <div class="panel-ai">Gemini</div>
+        <div class="panel-status" id="status-balthasar">STANDBY</div>
+        <div class="panel-judgment" id="judgment-balthasar">&mdash;</div>
+      </div>
+
+      <!-- MELCHIOR - Claude -->
+      <div class="magi-panel" id="panel-melchior" onclick="showDetail('melchior')">
+        <div class="panel-header">
+          <span class="panel-number">03</span>
+          <span class="panel-name">MELCHIOR</span>
+        </div>
+        <div class="panel-ai">Claude</div>
+        <div class="panel-status" id="status-melchior">STANDBY</div>
+        <div class="panel-judgment" id="judgment-melchior">&mdash;</div>
+      </div>
+    </div>
+
+    <div class="result-bar" id="result-bar">
+      <span id="result-text"></span>
+    </div>
+  </main>
+
+  <!-- Detail Modal -->
+  <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+    <div class="modal-content">
+      <div class="modal-header" id="modal-header"></div>
+      <div class="modal-body" id="modal-body"></div>
+      <button class="modal-close" onclick="closeModal()">CLOSE</button>
+    </div>
+  </div>
+
+  <footer>
+    <span>MAGI SYSTEM ver.2026 &mdash; ARTIFICIAL EVOLUTION LABORATORY</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
