@@ -374,6 +374,38 @@
   
 
   <script>
+    // Block ad redirects: sandbox all ad iframes
+    (function() {
+      function sandboxIframe(iframe) {
+        if (!iframe.sandbox || !iframe.sandbox.contains('allow-scripts')) {
+          iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+        }
+      }
+      // Sandbox existing iframes
+      document.querySelectorAll('iframe').forEach(sandboxIframe);
+      // Watch for dynamically added iframes
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(m) {
+          m.addedNodes.forEach(function(node) {
+            if (node.tagName === 'IFRAME') sandboxIframe(node);
+            if (node.querySelectorAll) {
+              node.querySelectorAll('iframe').forEach(sandboxIframe);
+            }
+          });
+        });
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      // Block window.open attempts from ads
+      var origOpen = window.open;
+      window.open = function(url) {
+        if (url && (url.indexOf('highperformanceformat') !== -1 || url.indexOf('effectivegatecpm') !== -1 || url.indexOf('adsterra') !== -1)) {
+          return null;
+        }
+        return origOpen.apply(window, arguments);
+      };
+    })();
+
     // Interstitial countdown
     (function() {
       var seconds = 5;
