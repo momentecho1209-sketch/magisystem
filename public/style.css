@@ -366,6 +366,89 @@ button#submit:disabled {
   color: var(--bg-primary);
 }
 
+/* Interstitial Ad Overlay */
+.interstitial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.interstitial-content {
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+}
+
+.interstitial-header {
+  font-size: 1.2rem;
+  letter-spacing: 0.4rem;
+  color: var(--orange);
+  margin-bottom: 30px;
+  animation: flicker 4s infinite alternate;
+}
+
+.interstitial-ad-link {
+  display: block;
+  text-decoration: none;
+}
+
+.interstitial-ad-area {
+  border: 1px solid var(--green-primary);
+  padding: 40px 20px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.interstitial-ad-area:hover {
+  background: var(--green-dark);
+  box-shadow: 0 0 20px var(--green-dim);
+}
+
+.interstitial-ad-text {
+  font-size: 1rem;
+  letter-spacing: 0.3rem;
+  color: var(--green-primary);
+  margin-bottom: 10px;
+}
+
+.interstitial-ad-sub {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.2rem;
+}
+
+.interstitial-close-btn {
+  background: none;
+  border: 1px solid var(--text-dim);
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.2rem;
+  padding: 10px 30px;
+  cursor: not-allowed;
+  transition: all 0.3s;
+  min-width: 120px;
+}
+
+.interstitial-close-btn:not(:disabled) {
+  border-color: var(--green-primary);
+  color: var(--green-primary);
+  cursor: pointer;
+}
+
+.interstitial-close-btn:not(:disabled):hover {
+  background: var(--green-primary);
+  color: var(--bg-primary);
+}
+
 /* Footer */
 footer {
   text-align: center;

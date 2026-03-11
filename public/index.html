@@ -7,6 +7,22 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Interstitial Ad Overlay -->
+  <div id="interstitial" class="interstitial-overlay">
+    <div class="interstitial-content">
+      <div class="interstitial-header">NERV SECURITY CHECK</div>
+      <a href="https://www.effectivegatecpm.com/xm3qvzds1z?key=06159b3ffe78a758b9f3146b151100ea" target="_blank" rel="noopener" class="interstitial-ad-link">
+        <div class="interstitial-ad-area">
+          <div class="interstitial-ad-text">SPONSORED CONTENT</div>
+          <div class="interstitial-ad-sub">Click to view</div>
+        </div>
+      </a>
+      <button id="interstitial-close" class="interstitial-close-btn" disabled onclick="closeInterstitial()">
+        <span id="interstitial-timer">5</span>
+      </button>
+    </div>
+  </div>
+
   <div class="scanline"></div>
 
   <header>
@@ -79,7 +95,31 @@
   <footer>
     <span>MAGI SYSTEM ver.2026 &mdash; ARTIFICIAL EVOLUTION LABORATORY</span>
   </footer>
+  
+  <script src="https://pl28894781.effectivegatecpm.com/aa/0b/87/aa0b87ccd7ce76cd0b63f50e0966ec48.js"></script>
+  <script src="https://pl28894761.effectivegatecpm.com/f7/dc/4f/f7dc4f26bf341887f640c4bdfc93742b.js"></script>
 
+  <script>
+    // Interstitial countdown & close
+    (function() {
+      var seconds = 5;
+      var timer = document.getElementById('interstitial-timer');
+      var btn = document.getElementById('interstitial-close');
+      var interval = setInterval(function() {
+        seconds--;
+        if (seconds > 0) {
+          timer.textContent = seconds;
+        } else {
+          clearInterval(interval);
+          timer.textContent = 'CLOSE';
+          btn.disabled = false;
+        }
+      }, 1000);
+    })();
+    function closeInterstitial() {
+      document.getElementById('interstitial').style.display = 'none';
+    }
+  </script>
   <script src="script.js"></script>
 
 </body>
