@@ -93,13 +93,16 @@
   <div class="modal-overlay" id="share-modal" onclick="closeShareModal(event)">
     <div class="modal-content share-modal-content">
       <div class="modal-header">SHARE RESULT</div>
-      <div class="share-preview" id="share-preview"></div>
       <div class="share-text-label">POST CONTENT:</div>
       <div class="share-text-preview" id="share-text-preview"></div>
+      <div class="share-text-label">IMAGE PREVIEW:</div>
+      <div class="share-preview" id="share-preview"></div>
       <div class="share-modal-buttons">
         <button class="share-modal-btn" id="copy-image-btn" onclick="copyImageToClipboard()">COPY IMAGE</button>
         <button class="share-modal-btn share-modal-btn-primary" onclick="openXShare()">OPEN X</button>
       </div>
+      <div class="share-hint">COPY IMAGEボタンで画像をクリップボードに保存します。</div>
+      <div class="share-hint">画像を含めてポストする場合は、クリップボードから貼り付けてください。</div>
       <button class="modal-close" onclick="closeShareModal()">CLOSE</button>
     </div>
   </div>
@@ -138,7 +141,7 @@
 
       <div class="popup-section">
         <div class="popup-section-title">// このサイトについて</div>
-        <p>このサイトは、アニメ「エヴァンゲリオン」に登場する MAGIシステム にインスパイアされて制作した、MAGI風AI回答サイトです。</p>
+        <p>このサイトは、アニメ「エヴァンゲリオン」に登場する MAGIシステム にインスパイアされて制作された、MAGI風AI回答サイトです。</p>
         <p>作品の雰囲気をモチーフにしたファンインスパイア作品であり、公式とは一切関係ありません。</p>
         <p>本サイトでは、複数のAI（ChatGPT・Gemini・Claude）から回答を取得し、その結果を表示します。</p>
       </div>
