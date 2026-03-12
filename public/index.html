@@ -145,7 +145,7 @@
   </div>
 
   <script>
-    if (!document.referrer || !new URL(document.referrer).pathname.match(/\/(about|privacypolicy|terms)\.html$/)) {
+    if (!new URLSearchParams(location.search).has('back')) {
       document.getElementById('about-popup').classList.add('active');
     }
   </script>
