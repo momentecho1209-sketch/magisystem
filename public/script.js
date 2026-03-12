@@ -67,7 +67,7 @@ function updateCooldownDisplay() {
 
 async function submitQuestion() {
   const textarea = document.getElementById('question');
-  const question = textarea.value.trim();
+  const question = textarea.value.trim().slice(0, 300);
   if (!question) return;
 
   // Client-side rate check

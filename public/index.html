@@ -22,7 +22,7 @@
       <div class="input-section">
         <div class="input-label">INQUIRY INPUT</div>
         <div class="input-wrapper">
-          <textarea id="question" rows="3" placeholder="質問を入力してください..."></textarea>
+          <textarea id="question" rows="3" maxlength="300" placeholder="質問を入力してください..."></textarea>
           <button id="submit" onclick="submitQuestion()">
             <span class="btn-text">EXECUTE</span>
           </button>
@@ -72,7 +72,7 @@
     </main>
   </div>
 
-  <!-- system terminal -->
+  <!-- Hidden keyword input disguised as system terminal -->
   <div class="sys-border-line">
     <span class="sys-border-label">SYS://</span>
     <input type="text" id="ghost-input" class="ghost-input" placeholder="__________" autocomplete="off" spellcheck="false">
@@ -95,6 +95,13 @@
     <br>
     <br>
     <div class="footer-fan-notice">This site is a fan-inspired AI system and is not affiliated with Evangelion.<br>本サイトは『エヴァンゲリオン』にインスパイアされたファン制作のAIシステムであり、公式作品および関係団体とは一切関係ありません。</div>
+    <div class="footer-links">
+      <a href="/about.html">About</a>
+      <span class="footer-link-sep">|</span>
+      <a href="/privacypolicy.html">Privacy Policy</a>
+      <span class="footer-link-sep">|</span>
+      <a href="/terms.html">Terms</a>
+    </div>
   </footer>
 
   <!-- About Popup -->
@@ -123,7 +130,7 @@
       <div class="popup-section">
         <div class="popup-section-title">// 利用制限</div>
         <p>サーバー負荷軽減のため、質問回数には制限があります。</p>
-        <p><strong>5分間に3回</strong>まで質問可能です。</p>
+        <p><strong>5回</strong>質問すると<strong>60秒間</strong>のクールダウンが発生します。</p>
       </div>
 
       <div class="popup-section">

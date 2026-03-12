@@ -147,7 +147,7 @@ export async function onRequestPost(context) {
     );
   }
 
-  const sanitized = question.trim().slice(0, 500);
+  const sanitized = question.trim().slice(0, 300);
   const apiKey = env.OPENROUTER_API_KEY;
 
   const models = {

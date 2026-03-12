@@ -400,6 +400,28 @@ footer {
   color: var(--green-primary);
 }
 
+.footer-links {
+  margin-top: 12px;
+  font-size: 0.55rem;
+  letter-spacing: 0.15rem;
+}
+
+.footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: var(--green-primary);
+}
+
+.footer-link-sep {
+  color: var(--text-dim);
+  opacity: 0.3;
+  margin: 0 8px;
+}
+
 /* Cooldown bar */
 .cooldown-bar {
   display: flex;
@@ -418,7 +440,7 @@ footer {
   color: var(--orange);
 }
 
-/* system terminal line */
+/* Hidden keyword input - styled as system terminal line */
 .sys-border-line {
   max-width: 900px;
   margin: 0 auto;
@@ -441,7 +463,7 @@ footer {
   flex: 1;
   height: 14px;
   border: none;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(0, 170, 42, 0.12);
   background: transparent;
   color: var(--text-dim);
   font-family: inherit;
@@ -454,12 +476,15 @@ footer {
   transition: border-color 0.5s;
 }
 
-/* 
 .ghost-input:focus {
   border-bottom-color: var(--green-primary);
   opacity: 1;
 }
-*/
+
+.sys-border-line:focus-within .sys-border-label {
+  color: var(--green-primary);
+  opacity: 1;
+}
 
 .ghost-input::placeholder {
   color: var(--text-dim);

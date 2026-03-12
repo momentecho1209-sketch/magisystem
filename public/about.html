@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ABOUT - MAGI SYSTEM</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .legal-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px 20px 60px;
+    }
+    .legal-title {
+      font-size: 1.3rem;
+      letter-spacing: 0.5rem;
+      color: var(--green-primary);
+      text-align: center;
+      text-shadow: 0 0 15px var(--green-dim);
+      margin-bottom: 10px;
+    }
+    .legal-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green-primary), transparent);
+      margin: 15px 0;
+      opacity: 0.4;
+    }
+    .legal-body {
+      font-size: 0.8rem;
+      line-height: 2;
+      color: var(--text-dim);
+    }
+    .legal-body p {
+      margin-bottom: 12px;
+    }
+    .legal-back {
+      display: block;
+      margin: 30px auto 0;
+      background: none;
+      border: 1px solid var(--green-primary);
+      color: var(--green-primary);
+      font-family: inherit;
+      font-size: 0.85rem;
+      letter-spacing: 0.3rem;
+      padding: 10px 40px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      text-align: center;
+      width: fit-content;
+    }
+    .legal-back:hover {
+      background: var(--green-primary);
+      color: var(--bg-primary);
+      box-shadow: 0 0 20px var(--green-dim);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scanline"></div>
+
+  <header>
+    <div class="header-line"></div>
+    <h1>MAGI SYSTEM</h1>
+    <p class="subtitle">SUPER-COMPUTER SYSTEM &mdash; AI LAB</p>
+    <div class="header-line"></div>
+  </header>
+
+  <div class="legal-container">
+    <div class="legal-title">ABOUT</div>
+    <div class="legal-divider"></div>
+
+    <div class="legal-body">
+      <p>MAGI SYSTEM は複数のAIの回答を比較するための実験的なAIサイトです。<br>
+      ChatGPT / Gemini / Claude などのAIを利用し回答を生成しています。</p>
+
+      <p>本サイトはエヴァンゲリオンに登場するMAGIシステムにインスパイアされたファン制作サイトです。<br>
+      公式作品および関係団体とは一切関係ありません。</p>
+    </div>
+
+    <a href="/" class="legal-back">BACK TO MAGI</a>
+  </div>
+
+</body>
+</html>
