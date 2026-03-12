@@ -93,6 +93,10 @@ async function submitQuestion() {
   submitBtn.disabled = true;
   results = {};
 
+  // Hide share button
+  const shareBtn = document.getElementById('share-btn');
+  if (shareBtn) shareBtn.style.display = 'none';
+
   // Reset panels
   PANELS.forEach(id => {
     const panel = document.getElementById(`panel-${id}`);
@@ -204,6 +208,10 @@ function showFinalResult() {
     resultBar.className = 'result-bar split';
     resultText.textContent = `SPLIT DECISION — ${yesCount}:${noCount}`;
   }
+
+  // Show share button
+  const shareBtn = document.getElementById('share-btn');
+  if (shareBtn) shareBtn.style.display = 'block';
 }
 
 function showDetail(id) {
@@ -227,6 +235,42 @@ function closeModal(event) {
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// --- Share on X ---
+async function shareResult() {
+  const captureArea = document.getElementById('capture-area');
+  if (!captureArea || typeof html2canvas === 'undefined') return;
+
+  const btn = document.getElementById('share-btn');
+  const originalText = btn.textContent;
+  btn.textContent = 'CAPTURING...';
+  btn.disabled = true;
+
+  try {
+    const canvas = await html2canvas(captureArea, {
+      backgroundColor: '#0a0a0a',
+      scale: 2,
+    });
+
+    // Download image
+    const link = document.createElement('a');
+    link.download = 'magi-result.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+
+    // Build share text
+    const question = document.getElementById('question').value.trim();
+    const resultText = document.getElementById('result-text').textContent;
+    const text = `Q: ${question}\nMAGI SYSTEM: ${resultText}\n#MAGI_SYSTEM`;
+    const url = `https://x.com/intent/post?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  } catch (e) {
+    // silent fail
+  } finally {
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
 }
 
 // Restore cooldown display on page load

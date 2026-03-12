@@ -310,6 +310,27 @@ button#submit:disabled {
   color: var(--orange);
 }
 
+/* Share button */
+.share-btn {
+  display: block;
+  margin: 12px auto 0;
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 0.7rem;
+  letter-spacing: 0.25rem;
+  padding: 8px 28px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.share-btn:hover {
+  border-color: var(--green-primary);
+  color: var(--green-primary);
+  box-shadow: 0 0 12px var(--green-dark);
+}
+
 /* Modal */
 .modal-overlay {
   display: none;
