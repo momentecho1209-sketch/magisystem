@@ -8,6 +8,39 @@ const NAMES = {
 let results = {};
 let unlocked = false;
 
+// --- Turnstile ---
+const TURNSTILE_SITE_KEY = '0x4AAAAAACpwCj4LwTPGtiF1';
+let turnstileWidgetId = null;
+let turnstileReady = false;
+
+function initTurnstile() {
+  if (turnstileWidgetId !== null || !window.turnstile) return;
+  turnstileWidgetId = turnstile.render('#turnstile-container', {
+    sitekey: TURNSTILE_SITE_KEY,
+    size: 'invisible',
+    callback: () => { turnstileReady = true; },
+  });
+}
+
+function getTurnstileToken() {
+  if (!window.turnstile || turnstileWidgetId === null) return null;
+  return turnstile.getResponse(turnstileWidgetId);
+}
+
+function resetTurnstile() {
+  if (window.turnstile && turnstileWidgetId !== null) {
+    turnstile.reset(turnstileWidgetId);
+    turnstileReady = false;
+  }
+}
+
+// Init when Turnstile SDK loads
+if (window.turnstile) {
+  initTurnstile();
+} else {
+  window.addEventListener('load', () => setTimeout(initTurnstile, 500));
+}
+
 // --- Rate limit tracking (client-side, persisted via sessionStorage) ---
 const RATE_WINDOW = 60 * 1000;
 const RATE_MAX = 5;
@@ -111,10 +144,13 @@ async function submitQuestion() {
   document.getElementById('result-text').textContent = 'PROCESSING...';
 
   try {
+    // Get Turnstile token
+    const cfToken = getTurnstileToken();
+
     const res = await fetch('/api/ask', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question }),
+      body: JSON.stringify({ question, cfToken }),
     });
     const data = await res.json();
 
@@ -163,6 +199,7 @@ async function submitQuestion() {
     });
     document.getElementById('result-text').textContent = `ERROR: ${err.message}`;
   } finally {
+    resetTurnstile();
     if (!unlocked && getRemainingQueries() <= 0) {
       updateCooldownDisplay();
     } else {

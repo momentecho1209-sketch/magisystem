@@ -112,6 +112,47 @@ export async function onRequestPost(context) {
   const kv = env.MAGI_KV;
   const ip = request.headers.get('cf-connecting-ip') || 'unknown';
 
+  // Parse body
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return new Response(
+      JSON.stringify({ error: 'Invalid JSON' }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  // Turnstile verification
+  const turnstileSecret = env.TURNSTILE_SECRET_KEY;
+  if (turnstileSecret) {
+    const cfToken = body.cfToken;
+    if (!cfToken) {
+      return new Response(
+        JSON.stringify({ error: '認証トークンがありません。ページを再読み込みしてください。' }),
+        { status: 403, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: turnstileSecret,
+        response: cfToken,
+        remoteip: ip,
+      }),
+    });
+
+    const verifyData = await verifyRes.json();
+    if (!verifyData.success) {
+      return new Response(
+        JSON.stringify({ error: '認証に失敗しました。ページを再読み込みしてください。' }),
+        { status: 403, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+  }
+
   // Check unlock status — skip rate limit if unlocked
   const unlocked = kv ? await isUnlocked(kv, ip) : false;
 
@@ -126,17 +167,6 @@ export async function onRequestPost(context) {
         { status: 429, headers: { 'Content-Type': 'application/json' } }
       );
     }
-  }
-
-  // Parse body
-  let body;
-  try {
-    body = await request.json();
-  } catch {
-    return new Response(
-      JSON.stringify({ error: 'Invalid JSON' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
-    );
   }
 
   const { question } = body;
