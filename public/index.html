@@ -10,70 +10,17 @@
 
   <div class="scanline"></div>
 
-  <!-- Floating noise corners -->
-  <div class="noise-corner noise-tl">
-    <span class="noise-hex">0x7F3A</span>
-    <span class="noise-dot blink-slow"></span>
-    <span class="noise-label">SYS.ADDR</span>
-  </div>
-  <div class="noise-corner noise-tr">
-    <span class="noise-label">PRIORITY</span>
-    <span class="noise-dot blink-fast" style="background:var(--orange)"></span>
-    <span class="noise-hex">LV-2</span>
-  </div>
-
   <header>
     <div class="header-line"></div>
     <h1>MAGI SYSTEM</h1>
-    <p class="subtitle">SUPER-COMPUTER SYSTEM &mdash; NERV</p>
-    <div class="header-meta">
-      <span>VER 13.7.2</span>
-      <span>|</span>
-      <span>TOKYO-3</span>
-      <span>|</span>
-      <span>GEO-FRONT</span>
-      <span>|</span>
-      <span id="header-clock">00:00:00</span>
-    </div>
+    <p class="subtitle">SUPER-COMPUTER SYSTEM &mdash; AI LAB</p>
     <div class="header-line"></div>
   </header>
 
-  <!-- Scrolling data ticker -->
-  <div class="data-ticker">
-    <div class="ticker-track">
-      <span class="ticker-content">
-        &#x2588; MAGI-01 CASPER ONLINE &#x2588; MAGI-02 BALTHASAR ONLINE &#x2588; MAGI-03 MELCHIOR ONLINE &#x2588;
-        NERV HQ CENTRAL DOGMA &#x2588; PATTERN: BLUE &#x2588; A.T.FIELD NOMINAL &#x2588;
-        SYNC RATE: 78.3% &#x2588; PRIBNOW BOX: CLEAR &#x2588; SIGMA UNIT: STANDBY &#x2588;
-        LCL PRESSURE: NORMAL &#x2588; ENTRY PLUG STATUS: GREEN &#x2588; HARMONICS TEST: SCHEDULED &#x2588;
-        DUMMY SYSTEM: OFFLINE &#x2588; S2 ENGINE: MONITORING &#x2588; LANCE STATUS: UNKNOWN &#x2588;
-        MAGI-01 CASPER ONLINE &#x2588; MAGI-02 BALTHASAR ONLINE &#x2588; MAGI-03 MELCHIOR ONLINE &#x2588;
-        NERV HQ CENTRAL DOGMA &#x2588; PATTERN: BLUE &#x2588; A.T.FIELD NOMINAL &#x2588;
-        SYNC RATE: 78.3% &#x2588; PRIBNOW BOX: CLEAR &#x2588; SIGMA UNIT: STANDBY &#x2588;
-        LCL PRESSURE: NORMAL &#x2588; ENTRY PLUG STATUS: GREEN &#x2588; HARMONICS TEST: SCHEDULED &#x2588;
-        DUMMY SYSTEM: OFFLINE &#x2588; S2 ENGINE: MONITORING &#x2588; LANCE STATUS: UNKNOWN &#x2588;
-      </span>
-    </div>
-  </div>
-
   <div class="main-layout">
     <main>
-      <!-- Status micro-bar -->
-      <div class="status-micro">
-        <span class="micro-item"><span class="micro-dot green"></span>SYS</span>
-        <span class="micro-item"><span class="micro-dot green"></span>NET</span>
-        <span class="micro-item"><span class="micro-dot orange blink-slow"></span>API</span>
-        <span class="micro-item"><span class="micro-dot green"></span>DB</span>
-        <span class="micro-sep">|</span>
-        <span class="micro-item">LOAD: <span id="fake-load">0.42</span></span>
-        <span class="micro-sep">|</span>
-        <span class="micro-item">CONN: <span id="fake-conn">3</span>/128</span>
-        <span class="micro-sep">|</span>
-        <span class="micro-item">UPTIME: <span id="fake-uptime">847:23:01</span></span>
-      </div>
-
       <div class="input-section">
-        <div class="input-label">INQUIRY INPUT <span class="input-label-sub">[STDIN:TTY0]</span></div>
+        <div class="input-label">INQUIRY INPUT</div>
         <div class="input-wrapper">
           <textarea id="question" rows="3" placeholder="質問を入力してください..."></textarea>
           <button id="submit" onclick="submitQuestion()">
@@ -83,7 +30,6 @@
       </div>
 
       <div class="magi-panels">
-        <!-- CASPER - ChatGPT -->
         <div class="magi-panel" id="panel-casper" onclick="showDetail('casper')">
           <div class="panel-header">
             <span class="panel-number">01</span>
@@ -94,7 +40,6 @@
           <div class="panel-judgment" id="judgment-casper">&mdash;</div>
         </div>
 
-        <!-- BALTHASAR - Gemini -->
         <div class="magi-panel" id="panel-balthasar" onclick="showDetail('balthasar')">
           <div class="panel-header">
             <span class="panel-number">02</span>
@@ -105,7 +50,6 @@
           <div class="panel-judgment" id="judgment-balthasar">&mdash;</div>
         </div>
 
-        <!-- MELCHIOR - Claude -->
         <div class="magi-panel" id="panel-melchior" onclick="showDetail('melchior')">
           <div class="panel-header">
             <span class="panel-number">03</span>
@@ -121,138 +65,17 @@
         <span id="result-text"></span>
       </div>
 
-      <!-- Fake system log -->
-      <div class="sys-log">
-        <div class="sys-log-header">
-          <span class="sys-log-title">SYSTEM LOG</span>
-          <span class="sys-log-id">TTY:02</span>
-        </div>
-        <div class="sys-log-lines" id="sys-log-lines">
-          <div class="log-line"><span class="log-ts">00:00:00</span> <span class="log-ok">[OK]</span> MAGI kernel initialized</div>
-          <div class="log-line"><span class="log-ts">00:00:01</span> <span class="log-ok">[OK]</span> Neural link established</div>
-          <div class="log-line"><span class="log-ts">00:00:01</span> <span class="log-ok">[OK]</span> Organic CPU sync complete</div>
-          <div class="log-line"><span class="log-ts">00:00:02</span> <span class="log-warn">[WARN]</span> A.T.Field fluctuation detected</div>
-          <div class="log-line"><span class="log-ts">00:00:03</span> <span class="log-ok">[OK]</span> Pattern analysis module ready</div>
-          <div class="log-line"><span class="log-ts">00:00:03</span> <span class="log-ok">[OK]</span> Awaiting query input...</div>
-        </div>
-      </div>
-
-        <!-- Row 2: Data panels grid -->
-        <div class="bottom-data-grid">
-          <!-- Pilot Status -->
-          <div class="info-box">
-            <div class="info-box-header">
-              <span class="info-box-id">06</span>
-              <span class="info-box-name">PILOT STATUS</span>
-            </div>
-            <div class="info-box-body">
-              <div class="pilot-row"><span class="pilot-label">UNIT-00</span><span class="pilot-val pilot-standby">STANDBY</span></div>
-              <div class="pilot-row"><span class="pilot-label">UNIT-01</span><span class="pilot-val pilot-active">ACTIVE</span></div>
-              <div class="pilot-row"><span class="pilot-label">UNIT-02</span><span class="pilot-val pilot-standby">STANDBY</span></div>
-            </div>
-          </div>
-          <!-- Sync Monitor -->
-          <div class="info-box">
-            <div class="info-box-header">
-              <span class="info-box-id">07</span>
-              <span class="info-box-name">SYNC MONITOR</span>
-            </div>
-            <div class="info-box-body">
-              <div class="sync-bar-row">
-                <span class="sync-label">REI</span>
-                <div class="sync-track"><div class="sync-fill" id="sync-rei" style="width:42%"></div></div>
-                <span class="sync-pct" id="sync-rei-pct">42%</span>
-              </div>
-              <div class="sync-bar-row">
-                <span class="sync-label">SHINJI</span>
-                <div class="sync-track"><div class="sync-fill sync-fill-high" id="sync-shinji" style="width:78%"></div></div>
-                <span class="sync-pct" id="sync-shinji-pct">78%</span>
-              </div>
-              <div class="sync-bar-row">
-                <span class="sync-label">ASUKA</span>
-                <div class="sync-track"><div class="sync-fill" id="sync-asuka" style="width:65%"></div></div>
-                <span class="sync-pct" id="sync-asuka-pct">65%</span>
-              </div>
-            </div>
-          </div>
-          <!-- Waveform -->
-          <div class="info-box">
-            <div class="info-box-header">
-              <span class="info-box-id">09</span>
-              <span class="info-box-name">WAVEFORM</span>
-            </div>
-            <div class="info-box-body">
-              <canvas id="waveform-canvas" class="waveform-canvas" width="200" height="70"></canvas>
-              <div class="waveform-meta">
-                <span>FREQ: <span id="wave-freq">127.4</span>Hz</span>
-                <span>AMP: <span id="wave-amp">0.83</span></span>
-              </div>
-            </div>
-          </div>
-          <!-- Pattern -->
-          <div class="info-box">
-            <div class="info-box-header">
-              <span class="info-box-id">08</span>
-              <span class="info-box-name">PATTERN</span>
-            </div>
-            <div class="info-box-body">
-              <div class="pattern-grid" id="pattern-grid"></div>
-              <div class="pattern-status">BLOOD TYPE: <span style="color:var(--blue-yes)">BLUE</span> &mdash; NO THREAT</div>
-            </div>
-          </div>
-          <!-- Alert -->
-          <div class="info-box">
-            <div class="info-box-header">
-              <span class="info-box-id">10</span>
-              <span class="info-box-name">ALERT</span>
-            </div>
-            <div class="info-box-body">
-              <div class="alert-level">
-                <div class="alert-block alert-green active">NORMAL</div>
-                <div class="alert-block alert-yellow">CAUTION</div>
-                <div class="alert-block alert-red">EMERGENCY</div>
-              </div>
-              <div class="alert-sub">DEFCON: 5 &mdash; PEACE</div>
-            </div>
-          </div>
-          <!-- Resources -->
-          <div class="info-box">
-            <div class="info-box-header">
-              <span class="info-box-id">11</span>
-              <span class="info-box-name">RESOURCES</span>
-            </div>
-            <div class="info-box-body">
-              <div class="res-row"><span class="res-label">CPU</span><div class="res-track"><div class="res-fill" id="res-cpu" style="width:34%"></div></div></div>
-              <div class="res-row"><span class="res-label">MEM</span><div class="res-track"><div class="res-fill" id="res-mem" style="width:67%"></div></div></div>
-              <div class="res-row"><span class="res-label">NET</span><div class="res-track"><div class="res-fill" id="res-net" style="width:23%"></div></div></div>
-              <div class="res-row"><span class="res-label">LCL</span><div class="res-track"><div class="res-fill res-fill-warn" id="res-lcl" style="width:82%"></div></div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Signal noise bar -->
-        <div class="signal-bar">
-          <span class="signal-label">SIGNAL</span>
-          <div class="side-bar-graph">
-            <div class="bar-col" style="height:60%"></div>
-            <div class="bar-col" style="height:40%"></div>
-            <div class="bar-col" style="height:80%"></div>
-            <div class="bar-col" style="height:30%"></div>
-            <div class="bar-col" style="height:55%"></div>
-            <div class="bar-col" style="height:70%"></div>
-            <div class="bar-col" style="height:45%"></div>
-            <div class="bar-col" style="height:90%"></div>
-            <div class="bar-col" style="height:35%"></div>
-            <div class="bar-col" style="height:65%"></div>
-            <div class="bar-col" style="height:50%"></div>
-            <div class="bar-col" style="height:75%"></div>
-          </div>
-          <span class="signal-hex" id="noise-hex">7F 3A 02 E1 9C</span>
-          <span class="signal-label">ANALYSIS</span>
-        </div>
+      <!-- Cooldown timer -->
+      <div class="cooldown-bar" id="cooldown-bar" style="display:none">
+        <span class="cooldown-text">RATE LIMIT — RETRY IN <span id="cooldown-time">0</span>s</span>
       </div>
     </main>
+  </div>
 
+  <!-- Hidden keyword input disguised as system terminal -->
+  <div class="sys-border-line">
+    <span class="sys-border-label">SYS://</span>
+    <input type="text" id="ghost-input" class="ghost-input" placeholder="__________" autocomplete="off" spellcheck="false">
   </div>
 
   <!-- Detail Modal -->
@@ -265,220 +88,57 @@
   </div>
 
   <footer>
-    <div class="footer-grid">
-      <span>SEC-LEVEL: B</span>
-      <span>TERM: GF-07</span>
-      <span>OP: IKARI.G</span>
+    <div class="footer-upper">
+      <div class="footer-main">MAGI SYSTEM ver.2026 &mdash; ARTIFICIAL EVOLUTION LABORATORY</div>
+      <div class="footer-disclaimer">GOD'S IN HIS HEAVEN, ALL'S RIGHT WITH THE WORLD.</div>
     </div>
-    <div class="footer-main">MAGI SYSTEM ver.2026 &mdash; ARTIFICIAL EVOLUTION LABORATORY</div>
-    <div class="footer-disclaimer">GEHIRN / NERV &mdash; GOD'S IN HIS HEAVEN, ALL'S RIGHT WITH THE WORLD.</div>
+    <br>
+    <br>
+    <div class="footer-fan-notice">This site is a fan-inspired AI system and is not affiliated with Evangelion.<br>本サイトは『エヴァンゲリオン』にインスパイアされたファン制作のAIシステムであり、公式作品および関係団体とは一切関係ありません。</div>
   </footer>
-  
+
+  <!-- About Popup -->
+  <div class="popup-overlay" id="about-popup">
+    <div class="popup-content">
+      <div class="popup-title">ABOUT THIS SITE</div>
+      <div class="popup-divider"></div>
+
+      <div class="popup-section">
+        <div class="popup-section-title">// このサイトについて</div>
+        <p>このサイトは、アニメ「エヴァンゲリオン」に登場する MAGIシステム にインスパイアされて制作された、MAGI風AI回答サイトです。</p>
+        <p>作品の雰囲気をモチーフにしたファンインスパイア作品であり、公式とは一切関係ありません。</p>
+        <p>本サイトでは、複数のAI（ChatGPT・Gemini・Claude）から回答を取得し、その結果を表示します。</p>
+      </div>
+
+      <div class="popup-section">
+        <div class="popup-section-title">// 使い方</div>
+        <ol>
+          <li>質問を入力します</li>
+          <li>「EXECUTE」ボタンを押します</li>
+          <li>AI（ChatGPT / Gemini / Claude）が回答を生成します</li>
+          <li>それぞれのAIの回答を比較しながら閲覧できます</li>
+        </ol>
+      </div>
+
+      <div class="popup-section">
+        <div class="popup-section-title">// 利用制限</div>
+        <p>サーバー負荷軽減のため、質問回数には制限があります。</p>
+        <p><strong>5分間に3回</strong>まで質問可能です。</p>
+      </div>
+
+      <div class="popup-section">
+        <div class="popup-section-title">// 注意事項</div>
+        <p>AIによる回答は自動生成されたものであり、内容の正確性・完全性・安全性を保証するものではありません。</p>
+        <p>本サイトの回答を利用したことによって生じたいかなる損害についても、当サイトは責任を負いません。</p>
+      </div>
+
+      <div class="popup-divider"></div>
+      <button class="popup-close-btn" onclick="document.getElementById('about-popup').classList.remove('active')">CLOSE</button>
+    </div>
+  </div>
 
   <script>
-    // Block ad redirects: sandbox all ad iframes
-    (function() {
-      function sandboxIframe(iframe) {
-        if (!iframe.sandbox || !iframe.sandbox.contains('allow-scripts')) {
-          iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
-        }
-      }
-      // Sandbox existing iframes
-      document.querySelectorAll('iframe').forEach(sandboxIframe);
-      // Watch for dynamically added iframes
-      var observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(m) {
-          m.addedNodes.forEach(function(node) {
-            if (node.tagName === 'IFRAME') sandboxIframe(node);
-            if (node.querySelectorAll) {
-              node.querySelectorAll('iframe').forEach(sandboxIframe);
-            }
-          });
-        });
-      });
-      observer.observe(document.body, { childList: true, subtree: true });
-
-      // Block window.open attempts from ads
-      var origOpen = window.open;
-      window.open = function(url) {
-        if (url && (url.indexOf('highperformanceformat') !== -1 || url.indexOf('effectivegatecpm') !== -1 || url.indexOf('adsterra') !== -1)) {
-          return null;
-        }
-        return origOpen.apply(window, arguments);
-      };
-    })();
-
-    // Interstitial countdown
-    (function() {
-      var seconds = 5;
-      var timer = document.getElementById('interstitial-timer');
-      var btn = document.getElementById('interstitial-close');
-      var overlay = document.getElementById('interstitial');
-
-      // Force reset on load
-      btn.disabled = true;
-      timer.textContent = '5';
-      overlay.style.display = 'flex';
-
-      var interval = setInterval(function() {
-        seconds--;
-        if (seconds > 0) {
-          timer.textContent = seconds;
-        } else {
-          clearInterval(interval);
-          timer.textContent = 'CLOSE';
-          btn.disabled = false;
-        }
-      }, 1000);
-    })();
-    // Header clock
-    (function() {
-      function updateClock() {
-        var d = new Date();
-        var el = document.getElementById('header-clock');
-        if (el) el.textContent = d.toTimeString().slice(0,8);
-      }
-      updateClock();
-      setInterval(updateClock, 1000);
-    })();
-
-    // Fake noise data updates
-    (function() {
-      function rnd(min, max, dec) { return (Math.random() * (max - min) + min).toFixed(dec || 0); }
-      function hexByte() { return Math.floor(Math.random()*256).toString(16).toUpperCase().padStart(2,'0'); }
-
-      setInterval(function() {
-        var el = document.getElementById('fake-load');
-        if (el) el.textContent = rnd(0.1, 2.5, 2);
-      }, 3000);
-
-      setInterval(function() {
-        var el = document.getElementById('fake-conn');
-        if (el) el.textContent = Math.floor(Math.random() * 8 + 1);
-      }, 5000);
-
-      setInterval(function() {
-        var el = document.getElementById('noise-hex');
-        if (el) el.textContent = [hexByte(), hexByte(), hexByte(), hexByte(), hexByte()].join(' ');
-      }, 2000);
-
-      // Animate bar graph
-      setInterval(function() {
-        var bars = document.querySelectorAll('.bar-col');
-        bars.forEach(function(b) { b.style.height = rnd(20, 95) + '%'; });
-      }, 1500);
-
-      // Sync rate animation
-      setInterval(function() {
-        var pilots = [
-          { fill: 'sync-rei', pct: 'sync-rei-pct', base: 42, range: 12 },
-          { fill: 'sync-shinji', pct: 'sync-shinji-pct', base: 78, range: 8 },
-          { fill: 'sync-asuka', pct: 'sync-asuka-pct', base: 65, range: 15 },
-        ];
-        pilots.forEach(function(p) {
-          var v = Math.round(p.base + (Math.random() - 0.5) * p.range);
-          var el = document.getElementById(p.fill);
-          var pctEl = document.getElementById(p.pct);
-          if (el) el.style.width = v + '%';
-          if (pctEl) pctEl.textContent = v + '%';
-        });
-      }, 2500);
-
-      // Resource bars animation
-      setInterval(function() {
-        var res = [
-          { id: 'res-cpu', base: 34, range: 30 },
-          { id: 'res-mem', base: 67, range: 15 },
-          { id: 'res-net', base: 23, range: 40 },
-          { id: 'res-lcl', base: 82, range: 10 },
-        ];
-        res.forEach(function(r) {
-          var v = Math.round(r.base + (Math.random() - 0.5) * r.range);
-          var el = document.getElementById(r.id);
-          if (el) el.style.width = Math.max(5, Math.min(98, v)) + '%';
-        });
-      }, 3000);
-
-      // Pattern grid (8x6 random dots)
-      (function() {
-        var grid = document.getElementById('pattern-grid');
-        if (!grid) return;
-        function render() {
-          var html = '';
-          for (var i = 0; i < 48; i++) {
-            var v = Math.random();
-            var cls = v > 0.85 ? 'pat-hot' : v > 0.6 ? 'pat-warm' : 'pat-cold';
-            html += '<div class="pat-cell ' + cls + '"></div>';
-          }
-          grid.innerHTML = html;
-        }
-        render();
-        setInterval(render, 2000);
-      })();
-
-      // Waveform canvas
-      (function() {
-        var canvas = document.getElementById('waveform-canvas');
-        if (!canvas) return;
-        var ctx = canvas.getContext('2d');
-        var w = canvas.width, h = canvas.height;
-        var offset = 0;
-
-        function draw() {
-          ctx.clearRect(0, 0, w, h);
-          // Grid lines
-          ctx.strokeStyle = 'rgba(0, 255, 65, 0.08)';
-          ctx.lineWidth = 1;
-          for (var gy = 0; gy < h; gy += 14) {
-            ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
-          }
-          for (var gx = 0; gx < w; gx += 20) {
-            ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke();
-          }
-          // Main wave
-          ctx.strokeStyle = '#00ff41';
-          ctx.lineWidth = 1.5;
-          ctx.shadowColor = '#00ff41';
-          ctx.shadowBlur = 4;
-          ctx.beginPath();
-          for (var x = 0; x < w; x++) {
-            var y = h / 2
-              + Math.sin((x + offset) * 0.05) * 15
-              + Math.sin((x + offset) * 0.12) * 8
-              + Math.sin((x + offset) * 0.03) * 5
-              + (Math.random() - 0.5) * 2;
-            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-          }
-          ctx.stroke();
-          ctx.shadowBlur = 0;
-          offset += 2;
-          requestAnimationFrame(draw);
-        }
-        draw();
-
-        setInterval(function() {
-          var fe = document.getElementById('wave-freq');
-          var ae = document.getElementById('wave-amp');
-          if (fe) fe.textContent = (100 + Math.random() * 80).toFixed(1);
-          if (ae) ae.textContent = (0.5 + Math.random() * 0.5).toFixed(2);
-        }, 3000);
-      })();
-
-      // Uptime counter
-      var ut = 847 * 3600 + 23 * 60 + 1;
-      setInterval(function() {
-        ut++;
-        var h = Math.floor(ut / 3600);
-        var m = Math.floor((ut % 3600) / 60);
-        var s = ut % 60;
-        var el = document.getElementById('fake-uptime');
-        if (el) el.textContent = h + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-      }, 1000);
-    })();
-
-    function closeInterstitial() {
-      document.getElementById('interstitial').style.display = 'none';
-    }
+    document.getElementById('about-popup').classList.add('active');
   </script>
   <script src="script.js"></script>
 

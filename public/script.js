@@ -6,11 +6,75 @@ const NAMES = {
 };
 
 let results = {};
+let unlocked = false;
+
+// --- Rate limit tracking (client-side) ---
+const queryTimestamps = [];
+const RATE_WINDOW = 60 * 1000;
+const RATE_MAX = 5;
+let cooldownTimer = null;
+
+let cooldownEnd = 0;  // timestamp when cooldown expires
+
+function getRemainingQueries() {
+  if (unlocked) return Infinity;
+  if (Date.now() < cooldownEnd) return 0;
+  return RATE_MAX - queryTimestamps.length;
+}
+
+function getResetTime() {
+  if (Date.now() < cooldownEnd) {
+    return Math.ceil((cooldownEnd - Date.now()) / 1000);
+  }
+  return 0;
+}
+
+function updateCooldownDisplay() {
+  const el = document.getElementById('cooldown-bar');
+  if (!el) return;
+
+  if (unlocked) {
+    el.style.display = 'none';
+    return;
+  }
+
+  const remaining = getRemainingQueries();
+  const resetSec = getResetTime();
+
+  if (remaining > 0) {
+    el.style.display = 'none';
+    if (cooldownTimer) { clearInterval(cooldownTimer); cooldownTimer = null; }
+    return;
+  }
+
+  el.style.display = 'flex';
+  document.getElementById('cooldown-time').textContent = resetSec;
+
+  if (!cooldownTimer) {
+    cooldownTimer = setInterval(() => {
+      const sec = getResetTime();
+      if (sec <= 0) {
+        el.style.display = 'none';
+        clearInterval(cooldownTimer);
+        cooldownTimer = null;
+        document.getElementById('submit').disabled = false;
+      } else {
+        document.getElementById('cooldown-time').textContent = sec;
+      }
+    }, 1000);
+  }
+}
 
 async function submitQuestion() {
   const textarea = document.getElementById('question');
   const question = textarea.value.trim();
   if (!question) return;
+
+  // Client-side rate check
+  if (!unlocked && getRemainingQueries() <= 0) {
+    updateCooldownDisplay();
+    return;
+  }
 
   const submitBtn = document.getElementById('submit');
   submitBtn.disabled = true;
@@ -38,7 +102,22 @@ async function submitQuestion() {
     const data = await res.json();
 
     if (data.error) {
+      if (res.status === 429 && data.resetIn) {
+        // Server-side rate limit hit
+        queryTimestamps.push(Date.now());
+        updateCooldownDisplay();
+      }
       throw new Error(data.error);
+    }
+
+    // Record successful query
+    if (!unlocked) {
+      queryTimestamps.push(Date.now());
+      if (queryTimestamps.length >= RATE_MAX) {
+        cooldownEnd = Date.now() + RATE_WINDOW;
+        queryTimestamps.length = 0;
+      }
+      updateCooldownDisplay();
     }
 
     // Stagger the reveal for dramatic effect
@@ -65,7 +144,11 @@ async function submitQuestion() {
     });
     document.getElementById('result-text').textContent = `ERROR: ${err.message}`;
   } finally {
-    submitBtn.disabled = false;
+    if (!unlocked && getRemainingQueries() <= 0) {
+      updateCooldownDisplay();
+    } else {
+      submitBtn.disabled = false;
+    }
   }
 }
 
@@ -137,3 +220,38 @@ document.getElementById('question').addEventListener('keydown', (e) => {
     submitQuestion();
   }
 });
+
+// --- Hidden keyword input ---
+(function() {
+  const ghost = document.getElementById('ghost-input');
+  if (!ghost) return;
+
+  ghost.addEventListener('keydown', async (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const keyword = ghost.value.trim();
+      ghost.value = '';
+      if (!keyword) return;
+
+      try {
+        const res = await fetch('/api/unlock', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ keyword }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          unlocked = true;
+          const cooldown = document.getElementById('cooldown-bar');
+          if (cooldown) cooldown.style.display = 'none';
+          if (cooldownTimer) { clearInterval(cooldownTimer); cooldownTimer = null; }
+          document.getElementById('submit').disabled = false;
+          ghost.style.borderColor = 'var(--green-primary)';
+          setTimeout(() => { ghost.style.borderColor = ''; }, 1500);
+        }
+      } catch (e) {
+        // silent fail
+      }
+    }
+  });
+})();

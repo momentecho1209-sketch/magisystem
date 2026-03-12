@@ -7,6 +7,51 @@ Respond in this exact JSON format:
 
 Always respond in the same language as the user's question. Do not include anything outside the JSON.`;
 
+const RATE_MAX = 5;
+const RATE_WINDOW = 60; // seconds
+
+// --- Rate limiting via KV ---
+async function checkRateLimit(kv, ip) {
+  const key = `rate:${ip}`;
+  const data = await kv.get(key, 'json');
+
+  if (!data) {
+    // First request
+    await kv.put(key, JSON.stringify({ count: 1 }), { expirationTtl: RATE_WINDOW });
+    return { allowed: true, remaining: RATE_MAX - 1 };
+  }
+
+  if (data.cooldownUntil) {
+    const now = Math.floor(Date.now() / 1000);
+    if (now < data.cooldownUntil) {
+      return { allowed: false, resetIn: data.cooldownUntil - now };
+    }
+    // Cooldown expired, reset
+    await kv.put(key, JSON.stringify({ count: 1 }), { expirationTtl: RATE_WINDOW });
+    return { allowed: true, remaining: RATE_MAX - 1 };
+  }
+
+  const newCount = data.count + 1;
+
+  if (newCount >= RATE_MAX) {
+    // Hit the limit — start cooldown
+    const cooldownUntil = Math.floor(Date.now() / 1000) + RATE_WINDOW;
+    await kv.put(key, JSON.stringify({ count: 0, cooldownUntil }), { expirationTtl: RATE_WINDOW + 5 });
+    return { allowed: true, remaining: 0 }; // Allow this last request, then lock
+  }
+
+  // Refresh TTL with updated count
+  await kv.put(key, JSON.stringify({ count: newCount }), { expirationTtl: RATE_WINDOW });
+  return { allowed: true, remaining: RATE_MAX - newCount };
+}
+
+// --- Check unlock status ---
+async function isUnlocked(kv, ip) {
+  const val = await kv.get(`unlock:${ip}`);
+  return val === 'true';
+}
+
+// --- OpenRouter API call ---
 async function callOpenRouter(apiKey, model, question) {
   const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
@@ -62,34 +107,25 @@ function mockResponse(name) {
   };
 }
 
-// Rate limiting using Cloudflare KV (simple in-memory fallback)
-const rateLimitMap = new Map();
-
-function checkRateLimit(ip) {
-  const now = Date.now();
-  const windowMs = 60 * 1000;
-  const maxRequests = 5;
-
-  const entry = rateLimitMap.get(ip);
-  if (!entry || now - entry.start > windowMs) {
-    rateLimitMap.set(ip, { start: now, count: 1 });
-    return true;
-  }
-  entry.count++;
-  if (entry.count > maxRequests) return false;
-  return true;
-}
-
 export async function onRequestPost(context) {
   const { request, env } = context;
-
-  // Rate limit
+  const kv = env.MAGI_KV;
   const ip = request.headers.get('cf-connecting-ip') || 'unknown';
-  if (!checkRateLimit(ip)) {
-    return new Response(
-      JSON.stringify({ error: 'リクエスト制限に達しました。1分後に再試行してください。' }),
-      { status: 429, headers: { 'Content-Type': 'application/json' } }
-    );
+
+  // Check unlock status — skip rate limit if unlocked
+  const unlocked = kv ? await isUnlocked(kv, ip) : false;
+
+  if (!unlocked && kv) {
+    const limit = await checkRateLimit(kv, ip);
+    if (!limit.allowed) {
+      return new Response(
+        JSON.stringify({
+          error: `リクエスト制限に達しました。${limit.resetIn}秒後に再試行してください。`,
+          resetIn: limit.resetIn,
+        }),
+        { status: 429, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
   }
 
   // Parse body
