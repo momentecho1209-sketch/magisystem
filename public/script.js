@@ -253,23 +253,46 @@ async function shareResult() {
       scale: 2,
     });
 
-    // Download image
-    const link = document.createElement('a');
-    link.download = 'magi-result.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-
-    // Build share text
     const question = document.getElementById('question').value.trim();
     const resultText = document.getElementById('result-text').textContent;
-    const text = `Q: ${question}\nMAGI SYSTEM: ${resultText}\n#MAGI_SYSTEM`;
-    const url = `https://x.com/intent/post?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
+    const siteUrl = location.origin;
+    const shareText = `Q: ${question}\nMAGI SYSTEM: ${resultText}\n${siteUrl}\n#MAGI_SYSTEM`;
+
+    // Try Web Share API (mobile: can share image directly to X app)
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    const file = new File([blob], 'magi-result.png', { type: 'image/png' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        text: shareText,
+        files: [file],
+      });
+    } else {
+      // Desktop fallback: copy image to clipboard + open X intent
+      try {
+        await navigator.clipboard.write([
+          new ClipboardItem({ 'image/png': blob })
+        ]);
+        btn.textContent = 'IMAGE COPIED!';
+      } catch {
+        // Clipboard failed — download instead
+        const link = document.createElement('a');
+        link.download = 'magi-result.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        btn.textContent = 'IMAGE SAVED!';
+      }
+      // Open X with text + site link
+      const intentUrl = `https://x.com/intent/post?text=${encodeURIComponent(shareText)}`;
+      window.open(intentUrl, '_blank');
+    }
   } catch (e) {
-    // silent fail
+    // User cancelled share or error — silent
   } finally {
-    btn.textContent = originalText;
-    btn.disabled = false;
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }, 1500);
   }
 }
 
