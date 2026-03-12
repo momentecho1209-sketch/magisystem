@@ -418,7 +418,7 @@ footer {
   color: var(--orange);
 }
 
-/* Hidden keyword input - styled as system terminal line */
+/* system terminal line */
 .sys-border-line {
   max-width: 900px;
   margin: 0 auto;
@@ -454,10 +454,12 @@ footer {
   transition: border-color 0.5s;
 }
 
+/* 
 .ghost-input:focus {
   border-bottom-color: var(--green-primary);
   opacity: 1;
 }
+*/
 
 .ghost-input::placeholder {
   color: var(--text-dim);
