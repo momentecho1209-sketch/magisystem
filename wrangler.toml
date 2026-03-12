@@ -8,7 +8,7 @@ id = "YOUR_KV_NAMESPACE_ID_HERE"
 [vars]
 # キーワードのSHA-256ハッシュ（カンマ区切りで複数可）
 # echo -n "magi-override-kiben" | sha256sum で生成
-UNLOCK_KEYWORD_HASHES = "eb9266efd2359f30a2ebe9c7f703bb791fac32d6877bc38667e777392e173391"
+UNLOCK_KEYWORD_HASHES = "eb9266efd2359f30a2ebe9c7f703bb791fac32d6877bc38667e777392e173391,e0e9b33c874fca339c9fd35e2de858326ba9c2a558a2c70c806596f6d65dfb06"
 
 # OPENROUTER_API_KEY は Cloudflare ダッシュボードの
 # Settings > Environment variables > Secret で設定してください

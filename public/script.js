@@ -8,13 +8,26 @@ const NAMES = {
 let results = {};
 let unlocked = false;
 
-// --- Rate limit tracking (client-side) ---
-const queryTimestamps = [];
+// --- Rate limit tracking (client-side, persisted via sessionStorage) ---
 const RATE_WINDOW = 60 * 1000;
 const RATE_MAX = 5;
 let cooldownTimer = null;
 
-let cooldownEnd = 0;  // timestamp when cooldown expires
+function loadRateState() {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem('magi_rate') || '{}');
+    return {
+      timestamps: (saved.timestamps || []).filter(t => Date.now() - t < RATE_WINDOW),
+      cooldownEnd: saved.cooldownEnd || 0,
+    };
+  } catch { return { timestamps: [], cooldownEnd: 0 }; }
+}
+
+function saveRateState(timestamps, cooldownEnd) {
+  sessionStorage.setItem('magi_rate', JSON.stringify({ timestamps, cooldownEnd }));
+}
+
+let { timestamps: queryTimestamps, cooldownEnd } = loadRateState();
 
 function getRemainingQueries() {
   if (unlocked) return Infinity;
@@ -105,6 +118,7 @@ async function submitQuestion() {
       if (res.status === 429 && data.resetIn) {
         // Server-side rate limit hit
         queryTimestamps.push(Date.now());
+        saveRateState(queryTimestamps, cooldownEnd);
         updateCooldownDisplay();
       }
       throw new Error(data.error);
@@ -117,6 +131,7 @@ async function submitQuestion() {
         cooldownEnd = Date.now() + RATE_WINDOW;
         queryTimestamps.length = 0;
       }
+      saveRateState(queryTimestamps, cooldownEnd);
       updateCooldownDisplay();
     }
 
@@ -212,6 +227,12 @@ function closeModal(event) {
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Restore cooldown display on page load
+updateCooldownDisplay();
+if (getRemainingQueries() <= 0) {
+  document.getElementById('submit').disabled = true;
 }
 
 // Allow Ctrl+Enter to submit
