@@ -238,6 +238,9 @@ function delay(ms) {
 }
 
 // --- Share on X ---
+let shareImageBlob = null;
+let shareTextContent = '';
+
 async function shareResult() {
   const captureArea = document.getElementById('capture-area');
   if (!captureArea || typeof html2canvas === 'undefined') return;
@@ -248,52 +251,78 @@ async function shareResult() {
   btn.disabled = true;
 
   try {
+    // Show question as static text for capture, hide textarea+button
+    const question = document.getElementById('question').value.trim();
+    const captureQ = document.getElementById('capture-question');
+    const inputWrapper = document.getElementById('input-wrapper');
+    captureQ.textContent = question;
+    captureQ.style.display = 'block';
+    inputWrapper.style.display = 'none';
+
     const canvas = await html2canvas(captureArea, {
       backgroundColor: '#0a0a0a',
       scale: 2,
     });
 
-    const question = document.getElementById('question').value.trim();
+    // Restore input
+    captureQ.style.display = 'none';
+    inputWrapper.style.display = 'flex';
+
     const resultText = document.getElementById('result-text').textContent;
     const siteUrl = location.origin;
-    const shareText = `Q: ${question}\nMAGI SYSTEM: ${resultText}\n${siteUrl}\n#MAGI_SYSTEM`;
+    shareTextContent = `[MAGI SYSTEM — OUTPUT]\n\n> INQUIRY: ${question}\n> RESULT: ${resultText}\n\n${siteUrl}\n#MAGI_AI`;
+    shareImageBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
 
-    // Try Web Share API (mobile: can share image directly to X app)
-    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-    const file = new File([blob], 'magi-result.png', { type: 'image/png' });
+    // Show modal with preview
+    const preview = document.getElementById('share-preview');
+    const img = document.createElement('img');
+    img.src = canvas.toDataURL('image/png');
+    preview.innerHTML = '';
+    preview.appendChild(img);
 
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({
-        text: shareText,
-        files: [file],
-      });
-    } else {
-      // Desktop fallback: copy image to clipboard + open X intent
-      try {
-        await navigator.clipboard.write([
-          new ClipboardItem({ 'image/png': blob })
-        ]);
-        btn.textContent = 'IMAGE COPIED!';
-      } catch {
-        // Clipboard failed — download instead
-        const link = document.createElement('a');
-        link.download = 'magi-result.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-        btn.textContent = 'IMAGE SAVED!';
-      }
-      // Open X with text + site link
-      const intentUrl = `https://x.com/intent/post?text=${encodeURIComponent(shareText)}`;
-      window.open(intentUrl, '_blank');
-    }
+    document.getElementById('share-text-preview').textContent = shareTextContent;
+    document.getElementById('copy-image-btn').textContent = 'COPY IMAGE';
+    document.getElementById('copy-image-btn').classList.remove('success');
+    document.getElementById('share-modal').classList.add('active');
   } catch (e) {
-    // User cancelled share or error — silent
+    // Restore input on error
+    document.getElementById('capture-question').style.display = 'none';
+    document.getElementById('input-wrapper').style.display = 'flex';
   } finally {
-    setTimeout(() => {
-      btn.textContent = originalText;
-      btn.disabled = false;
-    }, 1500);
+    btn.textContent = originalText;
+    btn.disabled = false;
   }
+}
+
+async function copyImageToClipboard() {
+  if (!shareImageBlob) return;
+  const btn = document.getElementById('copy-image-btn');
+  try {
+    await navigator.clipboard.write([
+      new ClipboardItem({ 'image/png': shareImageBlob })
+    ]);
+    btn.textContent = 'COPIED!';
+    btn.classList.add('success');
+  } catch {
+    // Fallback: download
+    const link = document.createElement('a');
+    link.download = 'magi-result.png';
+    link.href = URL.createObjectURL(shareImageBlob);
+    link.click();
+    URL.revokeObjectURL(link.href);
+    btn.textContent = 'SAVED!';
+    btn.classList.add('success');
+  }
+}
+
+function openXShare() {
+  const url = `https://x.com/intent/post?text=${encodeURIComponent(shareTextContent)}`;
+  window.open(url, '_blank');
+}
+
+function closeShareModal(event) {
+  if (event && event.target !== event.currentTarget) return;
+  document.getElementById('share-modal').classList.remove('active');
 }
 
 // Restore cooldown display on page load

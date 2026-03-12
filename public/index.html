@@ -19,9 +19,11 @@
 
   <div class="main-layout">
     <main>
+      <div id="capture-area">
       <div class="input-section">
         <div class="input-label">INQUIRY INPUT</div>
-        <div class="input-wrapper">
+        <div class="capture-question" id="capture-question" style="display:none"></div>
+        <div class="input-wrapper" id="input-wrapper">
           <textarea id="question" rows="3" maxlength="300" placeholder="質問を入力してください..."></textarea>
           <button id="submit" onclick="submitQuestion()">
             <span class="btn-text">EXECUTE</span>
@@ -29,7 +31,6 @@
         </div>
       </div>
 
-      <div id="capture-area">
       <div class="magi-panels">
         <div class="magi-panel" id="panel-casper" onclick="showDetail('casper')">
           <div class="panel-header">
@@ -82,6 +83,21 @@
   <div class="sys-border-line">
     <span class="sys-border-label">SYS://</span>
     <input type="text" id="ghost-input" class="ghost-input" placeholder="__________" autocomplete="off" spellcheck="false">
+  </div>
+
+  <!-- Share Modal -->
+  <div class="modal-overlay" id="share-modal" onclick="closeShareModal(event)">
+    <div class="modal-content share-modal-content">
+      <div class="modal-header">SHARE RESULT</div>
+      <div class="share-preview" id="share-preview"></div>
+      <div class="share-text-label">POST CONTENT:</div>
+      <div class="share-text-preview" id="share-text-preview"></div>
+      <div class="share-modal-buttons">
+        <button class="share-modal-btn" id="copy-image-btn" onclick="copyImageToClipboard()">COPY IMAGE</button>
+        <button class="share-modal-btn share-modal-btn-primary" onclick="openXShare()">OPEN X</button>
+      </div>
+      <button class="modal-close" onclick="closeShareModal()">CLOSE</button>
+    </div>
   </div>
 
   <!-- Detail Modal -->

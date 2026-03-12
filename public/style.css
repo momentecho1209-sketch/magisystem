@@ -331,6 +331,93 @@ button#submit:disabled {
   box-shadow: 0 0 12px var(--green-dark);
 }
 
+/* Capture question display (for screenshot) */
+.capture-question {
+  font-size: 0.85rem;
+  color: var(--green-primary);
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+/* Share modal */
+.share-modal-content {
+  max-width: 500px;
+}
+
+.share-preview {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.share-preview img {
+  max-width: 100%;
+  border: 1px solid var(--border-color);
+}
+
+.share-text-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2rem;
+  color: var(--orange);
+  margin-bottom: 6px;
+}
+
+.share-text-preview {
+  font-size: 0.75rem;
+  line-height: 1.8;
+  color: var(--text-dim);
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  white-space: pre-wrap;
+  margin-bottom: 20px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.share-modal-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.share-modal-btn {
+  flex: 1;
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 0.15rem;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.share-modal-btn:hover {
+  border-color: var(--green-primary);
+  color: var(--green-primary);
+  box-shadow: 0 0 10px var(--green-dark);
+}
+
+.share-modal-btn.success {
+  border-color: var(--green-primary);
+  color: var(--green-primary);
+}
+
+.share-modal-btn-primary {
+  border-color: var(--blue-yes);
+  color: var(--blue-yes);
+}
+
+.share-modal-btn-primary:hover {
+  background: rgba(0, 170, 255, 0.1);
+  box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
+}
+
 /* Modal */
 .modal-overlay {
   display: none;
