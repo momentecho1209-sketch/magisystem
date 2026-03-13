@@ -34,6 +34,15 @@
     .legal-body p {
       margin-bottom: 12px;
     }
+    .legal-body p strong {
+      color: var(--green-primary);
+    }
+    .legal-section-title {
+      font-size: 0.85rem;
+      letter-spacing: 0.25rem;
+      color: var(--orange);
+      margin: 25px 0 10px;
+    }
     .legal-back {
       display: block;
       margin: 30px auto 0;
@@ -73,11 +82,45 @@
     <div class="legal-divider"></div>
 
     <div class="legal-body">
-      <p>MAGI SYSTEM は複数のAIの回答を比較するための実験的なAIサイトです。<br>
-      ChatGPT / Gemini / Claude などのAIを利用し回答を生成しています。</p>
+      <div class="legal-section-title">// MAGI SYSTEMとは</div>
+      <p>MAGI SYSTEM は、複数のAIに同じ質問を投げかけ、それぞれの回答を比較できる実験的なAI回答比較サイトです。</p>
+      <p>3つのAI — ChatGPT（CASPER）、Gemini（BALTHASAR）、Claude（MELCHIOR） — がそれぞれ独立して質問を分析し、YES / NO の判定と理由を返します。最終的に多数決で「APPROVED（承認）」「DENIED（否決）」「SPLIT DECISION（意見分裂）」の結果が表示されます。</p>
 
-      <p>本サイトはエヴァンゲリオンに登場するMAGIシステムにインスパイアされたファン制作サイトです。<br>
-      公式作品および関係団体とは一切関係ありません。</p>
+      <div class="legal-section-title">// 使い方</div>
+      <p>1. テキストボックスに質問を入力します（最大300文字）。</p>
+      <p>2.「EXECUTE」ボタンを押すと、3つのAIが同時に質問を分析します。</p>
+      <p>3. 各パネルに結果が表示されます。パネルをクリックすると、AIの判定理由を詳しく確認できます。</p>
+      <p>4. 結果は「SHARE ON X」ボタンでX（旧Twitter）に共有できます。</p>
+
+      <div class="legal-section-title">// 技術構成</div>
+      <p>フロントエンド: HTML / CSS / JavaScript（フレームワーク不使用）</p>
+      <p>バックエンド: Cloudflare Pages Functions（サーバーレス）</p>
+      <p>AI API: OpenRouter経由で複数のAIモデルに接続</p>
+      <p>セキュリティ: Cloudflare Turnstile（BOT対策）、KVベースのレート制限</p>
+
+      <div class="legal-section-title">// 利用制限</div>
+      <p>サーバー負荷軽減およびAPI利用コスト管理のため、以下の制限を設けています。</p>
+      <p>・5回質問すると60秒間のクールダウンが発生します。</p>
+      <p>・1回の質問は最大300文字までです。</p>
+      <p>・BOTによる自動アクセスはCloudflare Turnstileによりブロックされます。</p>
+
+      <div class="legal-section-title">// よくある質問（FAQ）</div>
+      <p><strong>Q. 回答は正確ですか？</strong><br>
+      A. AIによる自動生成のため、正確性は保証されません。参考程度にご利用ください。</p>
+      <p><strong>Q. 質問内容は保存されますか？</strong><br>
+      A. 当サイトでは質問内容を保存・蓄積していません。AIへの送信後、サーバー上にデータは残りません。</p>
+      <p><strong>Q. 無料で利用できますか？</strong><br>
+      A. はい、完全無料でご利用いただけます。</p>
+      <p><strong>Q. スマートフォンでも使えますか？</strong><br>
+      A. はい、レスポンシブデザインに対応しており、スマートフォンやタブレットからもご利用いただけます。</p>
+
+      <div class="legal-section-title">// 本サイトについて</div>
+      <p>本サイトは、アニメ「エヴァンゲリオン」に登場するMAGIシステムにインスパイアされたファン制作サイトです。作品の公式団体、制作会社、権利者等とは一切関係ありません。</p>
+      <p>エヴァンゲリオンに登場するMAGIは、3台のスーパーコンピュータ（CASPER・BALTHASAR・MELCHIOR）による多数決システムです。本サイトはその世界観をモチーフに、現代のAI技術を組み合わせたオマージュ作品です。</p>
+
+      <div class="legal-section-title">// お問い合わせ</div>
+      <p>サイトに関するお問い合わせは以下のメールアドレスまでご連絡ください。</p>
+      <p>moment.echo.1209@gmail.com</p>
     </div>
 
     <a href="/?back" class="legal-back">BACK TO MAGI</a>
