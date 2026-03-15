@@ -7,7 +7,6 @@
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="style.css">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6964893810732826" crossorigin="anonymous"></script>
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </head>
 <body>
@@ -22,6 +21,34 @@
   </header>
 
   <div class="main-layout">
+    <!-- Side ad left -->
+    <aside class="side-ad side-ad-left">
+      <div class="side-ad-header">
+        <div class="ad-tag">
+          <span>DATA FEED</span>
+          <span class="ad-tag-id">SYS-04</span>
+        </div>
+      </div>
+      <div class="side-ad-status">
+        <span class="status-dot"></span>
+        <span class="status-text">EXTERNAL LINK ACTIVE</span>
+      </div>
+      <div class="ad-frame">
+        <!-- admax -->
+        <script src="https://adm.shinobi.jp/s/949e3d3d801ce28968f88dba4b34395b"></script>
+        <!-- admax -->
+      </div>
+      <div class="side-ad-spacer"></div>
+      <div class="side-ad-footer">
+        <div class="side-ad-meter"><div class="side-ad-meter-fill"></div></div>
+        <div class="side-ad-stats">
+          <span>SIGNAL OK</span>
+          <span>CH-04</span>
+        </div>
+      </div>
+      <div class="side-ad-bottom-tag">MAGI — EXT MODULE</div>
+    </aside>
+
     <main>
       <div id="capture-area">
       <div class="input-section">
@@ -74,14 +101,77 @@
 
       </div><!-- /capture-area -->
 
-      <!-- Share button -->
-      <button id="share-btn" class="share-btn" onclick="shareResult()" style="display:none">SHARE ON X</button>
+      <!-- Share button (always visible, disabled until result) -->
+      <button id="share-btn" class="share-btn" onclick="shareResult()" disabled>SHARE ON X</button>
 
       <!-- Cooldown timer -->
       <div class="cooldown-bar" id="cooldown-bar" style="display:none">
         <span class="cooldown-text">RATE LIMIT — RETRY IN <span id="cooldown-time">0</span>s</span>
       </div>
+
+      <!-- System status decoration -->
+      <div class="sys-deco">
+        <div class="sys-deco-row">
+          <span class="sys-deco-label">SYS INTEGRITY</span>
+          <span class="sys-deco-bar"><span class="sys-deco-bar-fill" style="width:87%"></span></span>
+          <span class="sys-deco-val">87%</span>
+        </div>
+        <div class="sys-deco-row">
+          <span class="sys-deco-label">NETWORK I/O</span>
+          <span class="sys-deco-bar"><span class="sys-deco-bar-fill sys-deco-bar-anim"></span></span>
+          <span class="sys-deco-val">ACTIVE</span>
+        </div>
+        <div class="sys-deco-row">
+          <span class="sys-deco-label">AI MODULES</span>
+          <span class="sys-deco-bar"><span class="sys-deco-bar-fill" style="width:100%"></span></span>
+          <span class="sys-deco-val">3/3</span>
+        </div>
+      </div>
+
+      <!-- Ad banner -->
+      <div class="ad-container">
+        <div class="ad-container-header">
+          <span class="ad-label">SPONSORED — EXTERNAL LINK</span>
+          <span class="ad-label-id">EXT-06</span>
+        </div>
+        <div class="ad-frame">
+          <!-- admax -->
+          <script src="https://adm.shinobi.jp/s/c68722dd3a39436acc784c95dfd8e151"></script>
+          <!-- admax -->
+        </div>
+        <div class="ad-container-footer">
+          <span class="ad-footer-text">MAGI EXTERNAL DATA CHANNEL</span>
+        </div>
+      </div>
     </main>
+
+    <!-- Side ad right -->
+    <aside class="side-ad side-ad-right">
+      <div class="side-ad-header">
+        <div class="ad-tag">
+          <span>DATA FEED</span>
+          <span class="ad-tag-id">SYS-05</span>
+        </div>
+      </div>
+      <div class="side-ad-status">
+        <span class="status-dot"></span>
+        <span class="status-text">EXTERNAL LINK ACTIVE</span>
+      </div>
+      <div class="ad-frame">
+        <!-- admax -->
+        <script src="https://adm.shinobi.jp/s/130d1f11307676556a14d06ec23912e0"></script>
+        <!-- admax -->
+      </div>
+      <div class="side-ad-spacer"></div>
+      <div class="side-ad-footer">
+        <div class="side-ad-meter"><div class="side-ad-meter-fill"></div></div>
+        <div class="side-ad-stats">
+          <span>SIGNAL OK</span>
+          <span>CH-05</span>
+        </div>
+      </div>
+      <div class="side-ad-bottom-tag">MAGI — EXT MODULE</div>
+    </aside>
   </div>
 
   <!-- Hidden keyword input disguised as system terminal -->
@@ -174,29 +264,15 @@
     </div>
   </div>
 
-  <!-- Cookie Consent Banner -->
-  <div class="cookie-banner" id="cookie-banner" style="display:none">
-    <div class="cookie-text">
-      当サイトでは、広告配信およびサイトの利便性向上のためにCookieを使用しています。サイトの利用を続けることで、Cookieの使用に同意したものとみなされます。
-      <a href="/privacypolicy.html" class="cookie-link">プライバシーポリシー</a>
-    </div>
-    <button class="cookie-accept" onclick="acceptCookies()">同意する</button>
-  </div>
-
   <script>
-    // Cookie consent
-    if (!localStorage.getItem('cookie_consent')) {
-      document.getElementById('cookie-banner').style.display = 'flex';
-    }
-    function acceptCookies() {
-      localStorage.setItem('cookie_consent', '1');
-      document.getElementById('cookie-banner').style.display = 'none';
-    }
-
     if (!new URLSearchParams(location.search).has('back')) {
       document.getElementById('about-popup').classList.add('active');
     }
   </script>
+  <!-- admax -->
+  <script src="https://adm.shinobi.jp/s/7e409a832f727dc28ec6a60c0ca355ae"></script>
+  <!-- admax -->
+
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="script.js"></script>
 

@@ -126,9 +126,9 @@ async function submitQuestion() {
   submitBtn.disabled = true;
   results = {};
 
-  // Hide share button
+  // Disable share button during analysis
   const shareBtn = document.getElementById('share-btn');
-  if (shareBtn) shareBtn.style.display = 'none';
+  if (shareBtn) shareBtn.disabled = true;
 
   // Reset panels
   PANELS.forEach(id => {
@@ -246,9 +246,9 @@ function showFinalResult() {
     resultText.textContent = `SPLIT DECISION — ${yesCount}:${noCount}`;
   }
 
-  // Show share button
+  // Enable share button
   const shareBtn = document.getElementById('share-btn');
-  if (shareBtn) shareBtn.style.display = 'block';
+  if (shareBtn) shareBtn.disabled = false;
 }
 
 function showDetail(id) {
