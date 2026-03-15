@@ -409,3 +409,15 @@ document.getElementById('question').addEventListener('keydown', (e) => {
     }
   });
 })();
+
+// --- SYS INTEGRITY gauge fluctuation ---
+(function() {
+  const valEl = document.getElementById('sys-integrity-val');
+  const barEl = document.getElementById('sys-integrity-bar');
+  if (!valEl || !barEl) return;
+  setInterval(() => {
+    const v = Math.floor(83 + Math.random() * 8); // 83–90
+    valEl.textContent = v + '%';
+    barEl.style.width = v + '%';
+  }, 3000);
+})();

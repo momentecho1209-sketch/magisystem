@@ -109,21 +109,27 @@
         <span class="cooldown-text">RATE LIMIT — RETRY IN <span id="cooldown-time">0</span>s</span>
       </div>
 
+      <!-- Hidden keyword input disguised as system terminal -->
+      <div class="sys-border-line main-spacer-line">
+        <span class="sys-border-label">SYS://</span>
+        <input type="text" id="ghost-input" class="ghost-input" placeholder="__________" autocomplete="off" spellcheck="false">
+      </div>
+
       <!-- System status decoration -->
       <div class="sys-deco">
         <div class="sys-deco-row">
           <span class="sys-deco-label">SYS INTEGRITY</span>
-          <span class="sys-deco-bar"><span class="sys-deco-bar-fill" style="width:87%"></span></span>
-          <span class="sys-deco-val">87%</span>
+          <div class="sys-deco-bar"><div class="sys-deco-bar-fill sys-deco-bar-integrity" id="sys-integrity-bar"></div></div>
+          <span class="sys-deco-val" id="sys-integrity-val">87%</span>
         </div>
         <div class="sys-deco-row">
           <span class="sys-deco-label">NETWORK I/O</span>
-          <span class="sys-deco-bar"><span class="sys-deco-bar-fill sys-deco-bar-anim"></span></span>
+          <div class="sys-deco-bar"><div class="sys-deco-bar-fill sys-deco-bar-active"></div></div>
           <span class="sys-deco-val">ACTIVE</span>
         </div>
         <div class="sys-deco-row">
           <span class="sys-deco-label">AI MODULES</span>
-          <span class="sys-deco-bar"><span class="sys-deco-bar-fill" style="width:100%"></span></span>
+          <div class="sys-deco-bar sys-deco-bar-segmented"><div class="sys-deco-bar-segments"><div class="sys-deco-bar-segment"></div><div class="sys-deco-bar-segment"></div><div class="sys-deco-bar-segment"></div></div></div>
           <span class="sys-deco-val">3/3</span>
         </div>
       </div>
@@ -174,11 +180,6 @@
     </aside>
   </div>
 
-  <!-- Hidden keyword input disguised as system terminal -->
-  <div class="sys-border-line">
-    <span class="sys-border-label">SYS://</span>
-    <input type="text" id="ghost-input" class="ghost-input" placeholder="__________" autocomplete="off" spellcheck="false">
-  </div>
 
   <!-- Share Modal -->
   <div class="modal-overlay" id="share-modal" onclick="closeShareModal(event)">

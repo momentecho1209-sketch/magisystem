@@ -94,10 +94,12 @@ h1 {
 }
 
 main {
-  padding: 20px 0;
+  padding: 20px 0 0;
   flex: 1;
   max-width: 900px;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Side ads */
@@ -105,7 +107,7 @@ main {
   width: 180px;
   flex-shrink: 0;
   margin-top: 20px;
-  align-self: flex-start;
+  margin-bottom: 0;
   border: 1px solid var(--border-color);
   background: var(--bg-secondary);
   overflow: hidden;
@@ -175,13 +177,10 @@ main {
 }
 
 .side-ad .ad-frame {
-  padding: 4px;
-  min-height: 600px;
-  flex: 1;
+  padding: 10px 4px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 10px;
 }
 
 .side-ad-spacer {
@@ -487,7 +486,7 @@ button#submit:disabled {
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 8px;
   background: rgba(255, 200, 0, 0.05);
   border: 1px solid #ffcc00;
   color: #ffcc00;
@@ -515,19 +514,31 @@ button#submit:disabled {
   box-shadow: 0 0 20px rgba(255, 200, 0, 0.2);
 }
 
+/* SYS:// line positioned as spacer between share btn and bottom elements */
+.main-spacer-line {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 4px 20px;
+  min-height: 20px;
+  max-width: 100%;
+  width: 100%;
+}
+
 /* System status decoration */
 .sys-deco {
-  margin-top: 10px;
+  margin-top: 8px;
   border: 1px solid var(--border-color);
   background: var(--bg-secondary);
-  padding: 10px 14px;
+  padding: 12px 20px;
 }
 
 .sys-deco-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 5px;
+  gap: 12px;
+  margin-bottom: 6px;
 }
 
 .sys-deco-row:last-child {
@@ -535,38 +546,90 @@ button#submit:disabled {
 }
 
 .sys-deco-label {
-  font-size: 0.45rem;
+  font-size: 0.5rem;
   letter-spacing: 0.15rem;
   color: var(--text-dim);
-  opacity: 0.5;
-  width: 80px;
+  opacity: 0.6;
+  width: 90px;
   flex-shrink: 0;
 }
 
 .sys-deco-bar {
   flex: 1;
-  height: 4px;
-  background: var(--bg-primary);
+  height: 8px;
+  background: rgba(0, 255, 65, 0.05);
   border: 1px solid var(--border-color);
   overflow: hidden;
+  position: relative;
 }
 
 .sys-deco-bar-fill {
   height: 100%;
   background: var(--green-primary);
-  opacity: 0.35;
+  opacity: 0.9;
+  box-shadow: 0 0 8px var(--green-primary);
 }
 
-.sys-deco-bar-anim {
-  animation: meter-sweep 6s linear infinite;
+/* SYS INTEGRITY — JS controls width, CSS just styles */
+.sys-deco-bar-integrity {
+  width: 87%;
+  opacity: 0.9;
+  box-shadow: 0 0 8px var(--green-primary);
+  transition: width 1.5s ease-in-out;
+}
+
+/* NETWORK I/O — full bright bar (ACTIVE state) */
+.sys-deco-bar-active {
+  width: 100%;
+  opacity: 0.9;
+  box-shadow: 0 0 10px var(--green-primary), 0 0 4px var(--green-dim);
+  animation: network-glow 2s ease-in-out infinite;
+}
+
+@keyframes network-glow {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* AI MODULES segmented bar */
+.sys-deco-bar-segmented {
+  border: none;
+  background: none;
+}
+
+.sys-deco-bar-segments {
+  height: 100%;
+  display: flex;
+  gap: 5px;
+  width: 100%;
+}
+
+.sys-deco-bar-segment {
+  flex: 1;
+  height: 100%;
+  border: 1px solid var(--border-color);
+  background: rgba(0, 255, 65, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.sys-deco-bar-segment::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--green-primary);
+  opacity: 0.85;
 }
 
 .sys-deco-val {
-  font-size: 0.45rem;
+  font-size: 0.5rem;
   letter-spacing: 0.1rem;
   color: var(--green-primary);
-  opacity: 0.4;
-  width: 40px;
+  opacity: 0.6;
+  width: 50px;
   text-align: right;
   flex-shrink: 0;
 }
@@ -802,7 +865,7 @@ footer {
 
 /* Ad container */
 .ad-container {
-  margin-top: 15px;
+  margin-top: 8px;
   border: 1px solid var(--border-color);
   background: var(--bg-secondary);
   overflow: hidden;
