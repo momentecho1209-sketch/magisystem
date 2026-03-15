@@ -104,7 +104,7 @@ main {
 
 /* Side ads */
 .side-ad {
-  width: 180px;
+  width: 190px;
   flex-shrink: 0;
   margin-top: 20px;
   margin-bottom: 0;
@@ -177,10 +177,11 @@ main {
 }
 
 .side-ad .ad-frame {
-  padding: 10px 4px;
+  padding: 10px 0;
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  overflow: hidden;
 }
 
 .side-ad-spacer {
