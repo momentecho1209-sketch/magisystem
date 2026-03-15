@@ -1111,7 +1111,7 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  z-index: 9998;
+  z-index: 10001;
   box-shadow: 0 -4px 20px rgba(0, 255, 65, 0.1);
 }
 
