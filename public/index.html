@@ -265,7 +265,25 @@
     </div>
   </div>
 
+  <!-- Cookie Consent Banner -->
+  <div class="cookie-banner" id="cookie-banner" style="display:none">
+    <div class="cookie-text">
+      当サイトでは、広告配信およびサイトの利便性向上のためにCookieを使用しています。サイトの利用を続けることで、Cookieの使用に同意したものとみなされます。
+      <a href="/privacypolicy.html" class="cookie-link">プライバシーポリシー</a>
+    </div>
+    <button class="cookie-accept" onclick="acceptCookies()">同意する</button>
+  </div>
+
   <script>
+    // Cookie consent
+    if (!localStorage.getItem('cookie_consent')) {
+      document.getElementById('cookie-banner').style.display = 'flex';
+    }
+    function acceptCookies() {
+      localStorage.setItem('cookie_consent', '1');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+
     if (!new URLSearchParams(location.search).has('back')) {
       document.getElementById('about-popup').classList.add('active');
     }
